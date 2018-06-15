@@ -82,9 +82,11 @@
 			isa = PBXGroup;
 			children = (
 				9E939AA520D4686900287F6E /* Models */,
+				9E939AB020D46AB200287F6E /* Networking */,
 				9E939AA720D4688300287F6E /* Storyboards */,
 				9E939AA620D4687100287F6E /* Supporting Files */,
 				9E939AA820D4689100287F6E /* ViewControllers */,
+				9E939AAF20D46AA700287F6E /* Views */,
 			);
 			path = CalendarFrontEnd;
 			sourceTree = "<group>";
@@ -132,6 +134,20 @@
 			children = (
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9E939AAF20D46AA700287F6E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9E939AB020D46AB200287F6E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
