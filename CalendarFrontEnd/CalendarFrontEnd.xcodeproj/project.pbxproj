@@ -15,6 +15,7 @@
 		9E939AAA20D468AE00287F6E /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AA920D468AE00287F6E /* Month.swift */; };
 		9E939AAC20D468B600287F6E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AAB20D468B600287F6E /* Date.swift */; };
 		9E939AAE20D46A4B00287F6E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AAD20D46A4B00287F6E /* Event.swift */; };
+		9EFA787B20D4CE0D0080D716 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFA787A20D4CE0D0080D716 /* CalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		9E939AA920D468AE00287F6E /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		9E939AAB20D468B600287F6E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		9E939AAD20D46A4B00287F6E /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		9EFA787A20D4CE0D0080D716 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 		9E939AA820D4689100287F6E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9EFA787A20D4CE0D0080D716 /* CalendarViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EFA787B20D4CE0D0080D716 /* CalendarViewController.swift in Sources */,
 				9E939A8620D4681500287F6E /* AppDelegate.swift in Sources */,
 				9E939AAA20D468AE00287F6E /* Month.swift in Sources */,
 				9E939AAC20D468B600287F6E /* Date.swift in Sources */,
@@ -416,7 +420,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RKDEZ4QK32;
-				INFOPLIST_FILE = CalendarFrontEnd/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CalendarFrontEnd/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -434,7 +438,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RKDEZ4QK32;
-				INFOPLIST_FILE = CalendarFrontEnd/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CalendarFrontEnd/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
