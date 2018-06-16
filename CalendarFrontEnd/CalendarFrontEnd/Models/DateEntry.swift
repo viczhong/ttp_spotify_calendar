@@ -1,5 +1,5 @@
 //
-//  Date.swift
+//  DateEntry.swift
 //  CalendarFrontEnd
 //
 //  Created by Victor Zhong on 6/15/18.
@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+struct DateEntry {
+    let dateString: String
+    let placeholder: Bool
+}

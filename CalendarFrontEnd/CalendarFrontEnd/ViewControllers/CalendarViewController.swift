@@ -11,7 +11,7 @@ import UIKit
 class CalendarViewController: UIViewController {
 
     var dateManager: DateManager!
-    var dateArray = [String]()
+    var dateArray = [DateEntry]()
 
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -19,7 +19,8 @@ class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dateManager = DateManager(datePicker.date) { [weak self] in
+        dateManager = DateManager(datePicker.date) { [weak self] dateArray in
+            self?.dateArray = dateArray
             self?.collectionView.reloadData()
         }
 
@@ -52,7 +53,9 @@ class CalendarViewController: UIViewController {
     }
 
     @IBAction func datePickerDateChanged(_ sender: Any) {
-        dateManager.setUpMonth(datePicker.date) { [weak self] in
+        dateManager.setUpMonth(datePicker.date) {[weak self] dateArray in
+            self?.dateArray = dateArray
+
             DispatchQueue.main.async {
                 self?.navigationItem.title = self?.dateManager.getHeaderString()
                 self?.collectionView.reloadData()
@@ -68,13 +71,14 @@ extension CalendarViewController: UICollectionViewDelegate {}
 extension CalendarViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dateManager.numberOfDays
+        return dateArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCollectionViewCell
 
-        cell.dateLabel.text = dateManager.calculateWeekday(indexPath)
+        cell.dateLabel.text = dateArray[indexPath.row].dateString
+
         cell.layer.borderWidth = 1
 
         return cell
