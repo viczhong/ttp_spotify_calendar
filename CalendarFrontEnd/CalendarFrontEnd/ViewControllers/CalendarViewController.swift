@@ -10,15 +10,15 @@ import UIKit
 
 class CalendarViewController: UIViewController {
 
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var collectionView: UICollectionView!
+
     var dateManager: DateManager!
     var dateArray = [DateEntry]() {
         didSet {
             collectionView.reloadData()
         }
     }
-
-    @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,28 +33,32 @@ class CalendarViewController: UIViewController {
         navigationItem.title = dateManager.getHeaderString()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        dateManager.setUpMonth(datePicker.date, { [weak self] dateArray in
+            self?.dateArray = dateArray
+        })
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        
-        if UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation) {
-            dateManager.rotated(.landscape) { [unowned self] in
-                self.dateManager.setUpMonth(self.datePicker.date, { dateArray in
-                    self.dateArray = dateArray
-//                    self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
-                })
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
 
-            }
+        var rotation: ScreenRotation
+
+        if UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation) {
+            rotation = .landscape
         } else {
-            dateManager.rotated(.portrait) { [unowned self] in
-                self.dateManager.setUpMonth(self.datePicker.date, { dateArray in
-                    self.dateArray = dateArray
-//                    self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
-                })
-            }
+           rotation = .portrait
+        }
+
+        dateManager.rotated(rotation) { [weak self] in
+            guard let date = self?.datePicker.date else { return }
+            self?.dateManager.setUpMonth(date, { dateArray in
+                self?.dateArray = dateArray
+            })
         }
 
         flowLayout.invalidateLayout()
@@ -70,7 +74,6 @@ class CalendarViewController: UIViewController {
             }
         }
     }
-
 }
 
 // MARK: - Collection View Extensions
@@ -87,8 +90,12 @@ extension CalendarViewController: UICollectionViewDataSource {
         let dateAtCell = dateArray[indexPath.row]
 
         cell.dateLabel.textColor = .black
-        cell.dateLabel.text = dateAtCell.dateString
         cell.eventLabel.text = ""
+        cell.dateLabel.text = dateAtCell.dateString
+
+        if dateManager.screenRotation == .landscape, let events = dateAtCell.eventString {
+            cell.eventLabel.text = events
+        }
 
         if dateAtCell.placeholder {
             cell.dateLabel.textColor = .gray

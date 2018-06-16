@@ -10,10 +10,6 @@ import Foundation
 
 class DateManager {
 
-    enum Rotation {
-        case landscape, portrait
-    }
-
     // MARK: Date-related properties
     let calender = Calendar.current
     let dateFormatter = DateFormatter()
@@ -23,7 +19,7 @@ class DateManager {
     var weekDaysLong = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     var weekDaysShort = ["S", "M", "T", "W", "Th", "F", "Sa"]
     var monthYearString = "January"
-    private var screenRotation = Rotation.portrait
+    var screenRotation = ScreenRotation.portrait
 
     // MARK: - Init
     init(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
@@ -48,30 +44,26 @@ class DateManager {
 
     }
 
-    func populateDateEntries(_ rotation: Rotation) -> [DateEntry] {
+    func populateDateEntries(_ rotation: ScreenRotation) -> [DateEntry] {
         var dateArray = [DateEntry]()
+        var weekdaysToDisplay = [String]()
 
         if rotation == .portrait {
-            for day in 0..<daysArray.count {
-                if let unwrappedDay = daysArray[day] {
-                    let date = DateEntry(dateString: "\(weekDaysShort[day % 7]) - \(unwrappedDay)", placeholder: false)
-                    dateArray.append(date)
-                } else {
-                    let date = DateEntry(dateString: weekDaysShort[day % 7], placeholder: true)
-                    dateArray.append(date)
-                }
-            }
+            weekdaysToDisplay = weekDaysShort
         } else {
-            for day in 0..<daysArray.count {
-                if let unwrappedDay = daysArray[day] {
-                    let date = DateEntry(dateString: "\(weekDaysLong[day % 7]) - \(unwrappedDay)", placeholder: false)
-                    dateArray.append(date)
-                } else {
-                    let date = DateEntry(dateString: weekDaysLong[day % 7], placeholder: true)
-                    dateArray.append(date)
-                }
+            weekdaysToDisplay = weekDaysLong
+        }
+
+        for day in 0..<daysArray.count {
+            if let unwrappedDay = daysArray[day] {
+                let date = DateEntry(dateString: "\(weekdaysToDisplay[day % 7]) - \(unwrappedDay)", placeholder: false, events: nil, eventString: "No events")
+                dateArray.append(date)
+            } else {
+                let date = DateEntry(dateString: weekdaysToDisplay[day % 7], placeholder: true, events: nil, eventString: nil)
+                dateArray.append(date)
             }
         }
+
 
         return dateArray
     }
@@ -99,7 +91,7 @@ class DateManager {
 
     }
 
-    func rotated(_ rotation: Rotation, _ completion: @escaping () -> Void) {
+    func rotated(_ rotation: ScreenRotation, _ completion: @escaping () -> Void) {
         screenRotation = rotation
         completion()
     }
