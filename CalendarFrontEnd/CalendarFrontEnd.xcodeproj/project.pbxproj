@@ -17,6 +17,7 @@
 		9E939AAE20D46A4B00287F6E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AAD20D46A4B00287F6E /* Event.swift */; };
 		9EFA787B20D4CE0D0080D716 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFA787A20D4CE0D0080D716 /* CalendarViewController.swift */; };
 		9EFA787F20D4D7700080D716 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFA787E20D4D7700080D716 /* DateManager.swift */; };
+		9EFA788220D4E98C0080D716 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFA788120D4E98C0080D716 /* DateCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		9E939AAD20D46A4B00287F6E /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		9EFA787A20D4CE0D0080D716 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9EFA787E20D4D7700080D716 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		9EFA788120D4E98C0080D716 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +87,8 @@
 		9E939A8420D4681500287F6E /* CalendarFrontEnd */ = {
 			isa = PBXGroup;
 			children = (
-				9E939AA520D4686900287F6E /* Models */,
 				9E939AB020D46AB200287F6E /* Managers */,
+				9E939AA520D4686900287F6E /* Models */,
 				9E939AA720D4688300287F6E /* Storyboards */,
 				9E939AA620D4687100287F6E /* Supporting Files */,
 				9E939AA820D4689100287F6E /* ViewControllers */,
@@ -144,6 +146,7 @@
 		9E939AAF20D46AA700287F6E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9EFA788120D4E98C0080D716 /* DateCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				9E939AAA20D468AE00287F6E /* Month.swift in Sources */,
 				9E939AAC20D468B600287F6E /* Date.swift in Sources */,
 				9E939AAE20D46A4B00287F6E /* Event.swift in Sources */,
+				9EFA788220D4E98C0080D716 /* DateCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

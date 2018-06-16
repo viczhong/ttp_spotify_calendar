@@ -18,29 +18,48 @@ class CalendarViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateManager = DateManager(year: 2018)
+
+        dateManager = DateManager(datePicker.date) { [weak self] in
+            self?.collectionView.reloadData()
+        }
 
         collectionView.delegate = self
         collectionView.dataSource = self
+
+        navigationItem.title = dateManager.getHeaderString()
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
+        
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
-
-        // TODO: Account for screen rotation
-
-//        if UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation) {
-//            datePicker.isHidden = true
-//        } else {
-//            datePicker.layer.isHidden = false
-//        }
+        
+        if UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation) {
+            dateManager.rotated(.landscape) { [unowned self] in
+                //self.collectionView.reloadData()
+                self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
+            }
+        } else {
+            dateManager.rotated(.portrait) { [unowned self] in
+                //self.collectionView.reloadData()
+                self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
+            }
+        }
 
         flowLayout.invalidateLayout()
     }
+
+    @IBAction func datePickerDateChanged(_ sender: Any) {
+        dateManager.setUpMonth(datePicker.date) { [weak self] in
+            DispatchQueue.main.async {
+                self?.navigationItem.title = self?.dateManager.getHeaderString()
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+
 }
 
 // MARK: - Collection View Extensions
@@ -49,15 +68,15 @@ extension CalendarViewController: UICollectionViewDelegate {}
 extension CalendarViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return dateManager.numberOfDays
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCollectionViewCell
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath)
-
+        cell.dateLabel.text = dateManager.calculateWeekday(indexPath)
         cell.layer.borderWidth = 1
-        
+
         return cell
     }
 }
@@ -72,3 +91,5 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
 }
+
+
