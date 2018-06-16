@@ -11,7 +11,11 @@ import UIKit
 class CalendarViewController: UIViewController {
 
     var dateManager: DateManager!
-    var dateArray = [DateEntry]()
+    var dateArray = [DateEntry]() {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
 
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -21,7 +25,6 @@ class CalendarViewController: UIViewController {
 
         dateManager = DateManager(datePicker.date) { [weak self] dateArray in
             self?.dateArray = dateArray
-            self?.collectionView.reloadData()
         }
 
         collectionView.delegate = self
@@ -39,13 +42,18 @@ class CalendarViewController: UIViewController {
         
         if UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation) {
             dateManager.rotated(.landscape) { [unowned self] in
-                //self.collectionView.reloadData()
-                self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
+                self.dateManager.setUpMonth(self.datePicker.date, { dateArray in
+                    self.dateArray = dateArray
+//                    self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
+                })
+
             }
         } else {
             dateManager.rotated(.portrait) { [unowned self] in
-                //self.collectionView.reloadData()
-                self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
+                self.dateManager.setUpMonth(self.datePicker.date, { dateArray in
+                    self.dateArray = dateArray
+//                    self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
+                })
             }
         }
 
@@ -76,8 +84,16 @@ extension CalendarViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCollectionViewCell
+        let dateAtCell = dateArray[indexPath.row]
 
-        cell.dateLabel.text = dateArray[indexPath.row].dateString
+        cell.dateLabel.textColor = .black
+        cell.dateLabel.text = dateAtCell.dateString
+        cell.eventLabel.text = ""
+
+        if dateAtCell.placeholder {
+            cell.dateLabel.textColor = .gray
+            cell.eventLabel.text = ""
+        }
 
         cell.layer.borderWidth = 1
 

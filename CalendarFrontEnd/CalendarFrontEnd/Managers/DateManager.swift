@@ -20,10 +20,10 @@ class DateManager {
     var daysArray = [Int?]()
     var numberOfDays = 0
     var placeholderDays = 0
-    private var screenRotation = Rotation.portrait
     var weekDaysLong = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     var weekDaysShort = ["S", "M", "T", "W", "Th", "F", "Sa"]
     var monthYearString = "January"
+    private var screenRotation = Rotation.portrait
 
     // MARK: - Init
     init(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
@@ -44,7 +44,6 @@ class DateManager {
         print("number of days: \(range.count), placeholders: \(placeholderDays)")
         populateNumberOfDaysInCalendar()
         calcuateMonthAndYear(month, year)
-//        populateDateEntries(screenRotation)
         completion(populateDateEntries(screenRotation))
 
     }
@@ -100,24 +99,9 @@ class DateManager {
 
     }
 
-    func calculateWeekday(_ indexPath: IndexPath) -> String {
-        // TODO: Figure out Rotation
-
-//        switch screenRotation {
-//        case .portrait:
-
-        if let date = daysArray[indexPath.row] {
-            return "\(weekDaysShort[indexPath.row % 7]) - \(date)"
-        } else {
-            return weekDaysShort[indexPath.row % 7]
-        }
-//        case .landscape:
-//            return weekDaysLong[indexPath.row % 7]
-//        }
-    }
-
     func rotated(_ rotation: Rotation, _ completion: @escaping () -> Void) {
         screenRotation = rotation
+        completion()
     }
 
 
