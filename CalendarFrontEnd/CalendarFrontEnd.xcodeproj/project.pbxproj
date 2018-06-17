@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E6954E320D62ECC00A30D63 /* DateEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6954E220D62ECC00A30D63 /* DateEventTableViewController.swift */; };
+		9E6954E820D62F7300A30D63 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6954E620D62F7300A30D63 /* EventTableViewCell.swift */; };
+		9E6954E920D62F7300A30D63 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6954E720D62F7300A30D63 /* EventTableViewCell.xib */; };
 		9E939A8620D4681500287F6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939A8520D4681500287F6E /* AppDelegate.swift */; };
 		9E939A8B20D4681500287F6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E939A8920D4681500287F6E /* Main.storyboard */; };
 		9E939A8D20D4681700287F6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E939A8C20D4681700287F6E /* Assets.xcassets */; };
@@ -32,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E6954E220D62ECC00A30D63 /* DateEventTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEventTableViewController.swift; sourceTree = "<group>"; };
+		9E6954E620D62F7300A30D63 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		9E6954E720D62F7300A30D63 /* EventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
 		9E939A8220D4681500287F6E /* CalendarFrontEnd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarFrontEnd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E939A8520D4681500287F6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E939A8A20D4681500287F6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -142,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				9EFA787A20D4CE0D0080D716 /* CalendarViewController.swift */,
+				9E6954E220D62ECC00A30D63 /* DateEventTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -150,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				9EFA788120D4E98C0080D716 /* DateCollectionViewCell.swift */,
+				9E6954E620D62F7300A30D63 /* EventTableViewCell.swift */,
+				9E6954E720D62F7300A30D63 /* EventTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -251,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E6954E920D62F7300A30D63 /* EventTableViewCell.xib in Resources */,
 				9E939A9020D4681700287F6E /* LaunchScreen.storyboard in Resources */,
 				9E939A8D20D4681700287F6E /* Assets.xcassets in Resources */,
 				9E939A8B20D4681500287F6E /* Main.storyboard in Resources */,
@@ -279,6 +289,8 @@
 				9E939AAE20D46A4B00287F6E /* Event.swift in Sources */,
 				9EFA788220D4E98C0080D716 /* DateCollectionViewCell.swift in Sources */,
 				9EFA788520D508800080D716 /* ScreenRotation.swift in Sources */,
+				9E6954E820D62F7300A30D63 /* EventTableViewCell.swift in Sources */,
+				9E6954E320D62ECC00A30D63 /* DateEventTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

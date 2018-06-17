@@ -77,7 +77,32 @@ class CalendarViewController: UIViewController {
 }
 
 // MARK: - Collection View Extensions
-extension CalendarViewController: UICollectionViewDelegate {}
+extension CalendarViewController: UICollectionViewDelegate {
+
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
+        if let tappedCell = sender as? DateCollectionViewCell,
+            let indexPathAtCell = collectionView.indexPath(for: tappedCell),
+            dateArray[indexPathAtCell.row].placeholder  {
+            return false
+        }
+
+        return true
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "dateSegue",
+            let eventsTVC = segue.destination as? DateEventTableViewController,
+            let tappedCell = sender as? DateCollectionViewCell,
+            let indexPathAtCell = collectionView.indexPath(for: tappedCell) {
+            eventsTVC.navigationItem.title = dateArray[indexPathAtCell.row].dateStringLong
+            
+            if let events = dateArray[indexPathAtCell.row].events {
+                eventsTVC.arrayOfEvents = events
+                 print(events.count)
+            }
+        }
+    }
+}
 
 extension CalendarViewController: UICollectionViewDataSource {
 
@@ -133,6 +158,7 @@ extension CalendarViewController: UICollectionViewDataSource {
 }
 
 extension CalendarViewController: UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
