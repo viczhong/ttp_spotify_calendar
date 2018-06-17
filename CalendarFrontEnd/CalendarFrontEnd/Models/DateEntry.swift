@@ -12,5 +12,4 @@ struct DateEntry {
     let dateString: String
     let placeholder: Bool
     let events: [Event]?
-    let eventString: String?
 }

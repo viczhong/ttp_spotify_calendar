@@ -10,6 +10,9 @@ import UIKit
 
 class DateCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var eventLabel: UILabel!
-
+    @IBOutlet weak var eventFirstLine: UILabel!
+    @IBOutlet weak var eventSecondLine: UILabel!
+    @IBOutlet weak var eventThirdLine: UILabel!
+    @IBOutlet weak var eventFourthLine: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
 }

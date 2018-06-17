@@ -51,7 +51,7 @@ class CalendarViewController: UIViewController {
         if UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation) {
             rotation = .landscape
         } else {
-           rotation = .portrait
+            rotation = .portrait
         }
 
         dateManager.rotated(rotation) { [weak self] in
@@ -88,18 +88,33 @@ extension CalendarViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCollectionViewCell
         let dateAtCell = dateArray[indexPath.row]
+        let eventLines = [cell.eventFirstLine, cell.eventSecondLine, cell.eventThirdLine, cell.eventFourthLine]
 
+        cell.imageView.image = nil
         cell.dateLabel.textColor = .black
-        cell.eventLabel.text = ""
+        _ = eventLines.map { $0?.text = "" }
+
         cell.dateLabel.text = dateAtCell.dateString
 
-        if dateManager.screenRotation == .landscape, let events = dateAtCell.eventString {
-            cell.eventLabel.text = events
+        if dateManager.screenRotation == .landscape, let events = dateAtCell.events {
+
+            for x in 0..<events.count {
+                guard x != 3 else {
+                    eventLines[x]?.text = "+ \(events.count - x + 1) more event(s)"
+                    break
+                }
+
+                eventLines[x]?.text = "\(events[x].timeStart) - \(events[x].description)"
+            }
+        }
+
+        if dateManager.screenRotation == .portrait, let _ = dateAtCell.events {
+            cell.imageView.image = UIImage(named: "events")
+            cell.setNeedsLayout()
         }
 
         if dateAtCell.placeholder {
             cell.dateLabel.textColor = .gray
-            cell.eventLabel.text = ""
         }
 
         cell.layer.borderWidth = 1

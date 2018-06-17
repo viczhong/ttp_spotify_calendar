@@ -20,6 +20,8 @@ class DateManager {
     var weekDaysShort = ["S", "M", "T", "W", "Th", "F", "Sa"]
     var monthYearString = "January"
     var screenRotation = ScreenRotation.portrait
+    var eventsArray = [Event]()
+    var monthDict = [Int : [Event]]()
 
     // MARK: - Init
     init(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
@@ -35,13 +37,15 @@ class DateManager {
         let firstDayWeekday = calender.component(.weekday, from: calculatedMonth)
 
         placeholderDays = firstDayWeekday - 1
-        numberOfDays = range.count + placeholderDays
+        numberOfDays = range.count 
 
         print("number of days: \(range.count), placeholders: \(placeholderDays)")
         populateNumberOfDaysInCalendar()
         calcuateMonthAndYear(month, year)
-        completion(populateDateEntries(screenRotation))
+        eventsArray = createMockEvents()
+        filterEventsIntoMonth(month, year)
 
+        completion(populateDateEntries(screenRotation))
     }
 
     func populateDateEntries(_ rotation: ScreenRotation) -> [DateEntry] {
@@ -54,16 +58,17 @@ class DateManager {
             weekdaysToDisplay = weekDaysLong
         }
 
+        var actualDateCount = 1
         for day in 0..<daysArray.count {
             if let unwrappedDay = daysArray[day] {
-                let date = DateEntry(dateString: "\(weekdaysToDisplay[day % 7]) - \(unwrappedDay)", placeholder: false, events: nil, eventString: "No events")
+                let date = DateEntry(dateString: "\(weekdaysToDisplay[day % 7]) - \(unwrappedDay)", placeholder: false, events: monthDict[actualDateCount])
                 dateArray.append(date)
+                actualDateCount += 1
             } else {
-                let date = DateEntry(dateString: weekdaysToDisplay[day % 7], placeholder: true, events: nil, eventString: nil)
+                let date = DateEntry(dateString: weekdaysToDisplay[day % 7], placeholder: true, events: nil)
                 dateArray.append(date)
             }
         }
-
 
         return dateArray
     }
@@ -71,7 +76,7 @@ class DateManager {
     func calcuateMonthAndYear(_ month: Int, _ year: Int) {
         let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-        self.monthYearString = "\(months[month - 1]), \(year)"
+        monthYearString = "\(months[month - 1]), \(year)"
     }
 
     func getHeaderString() -> String {
@@ -88,7 +93,6 @@ class DateManager {
         for day in 1...numberOfDays {
             daysArray.append(day)
         }
-
     }
 
     func rotated(_ rotation: ScreenRotation, _ completion: @escaping () -> Void) {
@@ -96,5 +100,31 @@ class DateManager {
         completion()
     }
 
+    // MARK: - Event functions
+    func filterEventsIntoMonth(_ month: Int, _ year: Int) {
+        monthDict = [:]
 
+        for event in eventsArray {
+            guard event.month == month && event.year == year else { continue }
+
+            if let existingArray = monthDict[event.day] {
+                let eventsAtDay = existingArray + [event]
+                monthDict[event.day] = eventsAtDay.sorted { $0.timeStart > $1.timeStart }
+            } else {
+                monthDict[event.day] = [event]
+            }
+        }
+    }
+
+    // MARK: - START MOCKING
+    func createMockEvents() -> [Event] {
+        let event1 = Event(id: 1, timeStart: "morning", timeEnd: "night", year: 2018, month: 6, day: 1, description: "Study Swift")
+        let event2 = Event(id: 2, timeStart: "morning", timeEnd: "night", year: 2018, month: 6, day: 1, description: "Study Swift")
+        let event3 = Event(id: 3, timeStart: "morning", timeEnd: "night", year: 2018, month: 6, day: 1, description: "Study Swift")
+        let event4 = Event(id: 1, timeStart: "morning", timeEnd: "night", year: 2018, month: 6, day: 18, description: "Study Swift")
+        let event5 = Event(id: 1, timeStart: "morning", timeEnd: "night", year: 2018, month: 5, day: 18, description: "Study Swift")
+
+        return [event1, event2, event3, event4, event5, event1, event1]
+    }
+    // MARK: - END MOCKING
 }
