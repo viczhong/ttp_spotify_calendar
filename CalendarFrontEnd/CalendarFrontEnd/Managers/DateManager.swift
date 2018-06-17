@@ -16,8 +16,7 @@ class DateManager {
     var daysArray = [Int?]()
     var numberOfDays = 0
     var placeholderDays = 0
-    var weekDaysLong = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    var weekDaysShort = ["S", "M", "T", "W", "Th", "F", "Sa"]
+
     var monthYearString = "January"
     var screenRotation = ScreenRotation.portrait
     var eventsArray = [Event]()
@@ -49,23 +48,21 @@ class DateManager {
     }
 
     func populateDateEntries(_ rotation: ScreenRotation) -> [DateEntry] {
+        let weekDaysLong = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        let weekDaysShort = ["S", "M", "T", "W", "Th", "F", "Sa"]
+
         var dateArray = [DateEntry]()
-        var weekdaysToDisplay = [String]()
-
-        if rotation == .portrait {
-            weekdaysToDisplay = weekDaysShort
-        } else {
-            weekdaysToDisplay = weekDaysLong
-        }
-
         var actualDateCount = 1
+
         for day in 0..<daysArray.count {
             if let unwrappedDay = daysArray[day] {
-                let date = DateEntry(dateString: "\(weekdaysToDisplay[day % 7]) - \(unwrappedDay)", placeholder: false, events: monthDict[actualDateCount])
+                let date = DateEntry(dateStringShort: "\(weekDaysShort[day % 7]) - \(unwrappedDay)", dateStringLong: "\(weekDaysLong[day % 7]) - \(unwrappedDay)", placeholder: false, events: monthDict[actualDateCount])
+
                 dateArray.append(date)
                 actualDateCount += 1
             } else {
-                let date = DateEntry(dateString: weekdaysToDisplay[day % 7], placeholder: true, events: nil)
+                let date = DateEntry(dateStringShort: weekDaysShort[day % 7], dateStringLong: weekDaysLong[day % 7], placeholder: true, events: nil)
+                
                 dateArray.append(date)
             }
         }
@@ -118,9 +115,9 @@ class DateManager {
 
     // MARK: - START MOCKING
     func createMockEvents() -> [Event] {
-        let event1 = Event(id: 1, timeStart: "morning", timeEnd: "night", year: 2018, month: 6, day: 1, description: "Study Swift")
-        let event2 = Event(id: 2, timeStart: "morning", timeEnd: "night", year: 2018, month: 6, day: 1, description: "Study Swift")
-        let event3 = Event(id: 3, timeStart: "morning", timeEnd: "night", year: 2018, month: 6, day: 1, description: "Study Swift")
+        let event1 = Event(id: 1, timeStart: "12:00 PM", timeEnd: "night", year: 2018, month: 6, day: 1, description: "Study Swift")
+        let event2 = Event(id: 2, timeStart: "1:00 PM", timeEnd: "night", year: 2018, month: 6, day: 1, description: "Study Swift")
+        let event3 = Event(id: 3, timeStart: "12:00 AM", timeEnd: "night", year: 2018, month: 6, day: 1, description: "Study Swift")
         let event4 = Event(id: 1, timeStart: "morning", timeEnd: "night", year: 2018, month: 6, day: 18, description: "Study Swift")
         let event5 = Event(id: 1, timeStart: "morning", timeEnd: "night", year: 2018, month: 5, day: 18, description: "Study Swift")
 

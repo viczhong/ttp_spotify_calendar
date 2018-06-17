@@ -9,7 +9,9 @@
 import Foundation
 
 struct DateEntry {
-    let dateString: String
+    let dateStringShort: String
+    let dateStringLong: String
     let placeholder: Bool
     let events: [Event]?
+
 }

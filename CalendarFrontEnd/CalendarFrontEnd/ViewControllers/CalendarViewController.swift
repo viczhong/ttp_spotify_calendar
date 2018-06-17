@@ -90,33 +90,42 @@ extension CalendarViewController: UICollectionViewDataSource {
         let dateAtCell = dateArray[indexPath.row]
         let eventLines = [cell.eventFirstLine, cell.eventSecondLine, cell.eventThirdLine, cell.eventFourthLine]
 
+        var dateString = String()
+
         cell.imageView.image = nil
         cell.dateLabel.textColor = .black
+
         _ = eventLines.map { $0?.text = "" }
 
-        cell.dateLabel.text = dateAtCell.dateString
+        if dateManager.screenRotation == .landscape {
+            dateString = dateAtCell.dateStringLong
 
-        if dateManager.screenRotation == .landscape, let events = dateAtCell.events {
+            if let events = dateAtCell.events {
+                for x in 0..<events.count {
+                    guard x != 3 else {
+                        eventLines[x]?.text = "+ \(events.count - x + 1) more event(s)"
+                        break
+                    }
 
-            for x in 0..<events.count {
-                guard x != 3 else {
-                    eventLines[x]?.text = "+ \(events.count - x + 1) more event(s)"
-                    break
+                    eventLines[x]?.text = "\(events[x].timeStart) - \(events[x].description)"
                 }
-
-                eventLines[x]?.text = "\(events[x].timeStart) - \(events[x].description)"
             }
         }
 
-        if dateManager.screenRotation == .portrait, let _ = dateAtCell.events {
-            cell.imageView.image = UIImage(named: "events")
-            cell.setNeedsLayout()
+        if dateManager.screenRotation == .portrait {
+            dateString = dateAtCell.dateStringShort
+
+            if let _ = dateAtCell.events {
+                cell.imageView.image = UIImage(named: "events")
+                cell.setNeedsLayout()
+            }
         }
 
         if dateAtCell.placeholder {
             cell.dateLabel.textColor = .gray
         }
 
+        cell.dateLabel.text = dateString
         cell.layer.borderWidth = 1
 
         return cell
@@ -127,7 +136,6 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-
         let widthPerItem = view.frame.width / 7
 
         return CGSize(width: widthPerItem, height: widthPerItem)

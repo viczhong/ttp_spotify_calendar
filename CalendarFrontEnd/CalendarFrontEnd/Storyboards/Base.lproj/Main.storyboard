@@ -104,6 +104,7 @@
                                             <outlet property="eventSecondLine" destination="bd0-fx-l84" id="9yR-uf-sk6"/>
                                             <outlet property="eventThirdLine" destination="1L9-vU-8fP" id="8cO-3N-hoA"/>
                                             <outlet property="imageView" destination="KoY-6z-vhR" id="06o-Ar-KWF"/>
+                                            <segue destination="hl4-tq-KZg" kind="show" identifier="dateSegue" id="uLV-56-bc9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -164,6 +165,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1885.5999999999999" y="792.95352323838085"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="8Nr-AF-dDD">
+            <objects>
+                <viewController id="hl4-tq-KZg" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aHb-s5-gCW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="pSb-4X-vpV"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="88f-h3-KAf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2705" y="793"/>
         </scene>
         <!--Events-->
         <scene sceneID="AvJ-vy-cmQ">
