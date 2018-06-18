@@ -99,6 +99,7 @@ extension CalendarViewController: UICollectionViewDelegate {
             guard let month = dateAtCell.month, let date = dateAtCell.date, let year = dateAtCell.year else { return }
             eventsTVC.navigationItem.title = "\(month) \(date), \(year)"
             eventsTVC.dateStringLong = dateAtCell.dateStringLong
+            eventsTVC.dateManager = dateManager
             
             if let events = dateArray[indexPathAtCell.row].events {
                 eventsTVC.events = events
@@ -136,7 +137,7 @@ extension CalendarViewController: UICollectionViewDataSource {
                         break
                     }
 
-                    eventLines[x]?.text = "\(events[x].timeStart) - \(events[x].title)"
+                    eventLines[x]?.text = "\(events[x].startTime) - \(events[x].title)"
                 }
             }
         }

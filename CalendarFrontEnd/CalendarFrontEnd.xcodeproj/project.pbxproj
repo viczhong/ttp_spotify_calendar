@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9E2199F620D71A9A002C3CA6 /* CreateEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2199F520D71A9A002C3CA6 /* CreateEventTableViewController.swift */; };
+		9E2199FA20D84824002C3CA6 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2199F920D84824002C3CA6 /* APIRequestManager.swift */; };
+		9E2199FC20D848B1002C3CA6 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2199FB20D848B1002C3CA6 /* RequestType.swift */; };
 		9E6954E320D62ECC00A30D63 /* DateEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6954E220D62ECC00A30D63 /* DateEventTableViewController.swift */; };
 		9E6954E820D62F7300A30D63 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6954E620D62F7300A30D63 /* EventTableViewCell.swift */; };
 		9E6954E920D62F7300A30D63 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6954E720D62F7300A30D63 /* EventTableViewCell.xib */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		9E2199F520D71A9A002C3CA6 /* CreateEventTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventTableViewController.swift; sourceTree = "<group>"; };
+		9E2199F920D84824002C3CA6 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
+		9E2199FB20D848B1002C3CA6 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 		9E6954E220D62ECC00A30D63 /* DateEventTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEventTableViewController.swift; sourceTree = "<group>"; };
 		9E6954E620D62F7300A30D63 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		9E6954E720D62F7300A30D63 /* EventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				9EFA787E20D4D7700080D716 /* DateManager.swift */,
+				9E2199F920D84824002C3CA6 /* APIRequestManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				9EFA788420D508800080D716 /* ScreenRotation.swift */,
+				9E2199FB20D848B1002C3CA6 /* RequestType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -284,7 +290,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E2199FA20D84824002C3CA6 /* APIRequestManager.swift in Sources */,
 				9EFA787B20D4CE0D0080D716 /* CalendarViewController.swift in Sources */,
+				9E2199FC20D848B1002C3CA6 /* RequestType.swift in Sources */,
 				9EFA787F20D4D7700080D716 /* DateManager.swift in Sources */,
 				9E939A8620D4681500287F6E /* AppDelegate.swift in Sources */,
 				9E939AAA20D468AE00287F6E /* Month.swift in Sources */,

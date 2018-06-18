@@ -27,6 +27,8 @@ class DateManager {
 
     // MARK: - Init
     init(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
+        dateFormatter.calendar = Calendar.current
+        dateFormatter.dateFormat = "MMM d, yyyy h:mm a zzz"
         setUpMonth(date, completion)
     }
 
@@ -113,20 +115,37 @@ class DateManager {
 
             if let existingArray = monthDict[event.day] {
                 let eventsAtDay = existingArray + [event]
-                monthDict[event.day] = eventsAtDay.sorted { $0.timeStart > $1.timeStart }
+                monthDict[event.day] = eventsAtDay.sorted { $0.startTime > $1.startTime }
             } else {
                 monthDict[event.day] = [event]
             }
         }
     }
 
+    func eventTimeStringToDate(_ dateString: String?, _ timeString: String? = nil) -> Date? {
+        var date = String()
+        var time = String()
+
+        if let dateString = dateString {
+            date = dateString
+        }
+
+        if let timeString = timeString {
+            time = timeString
+        } else {
+            time = "12:00 PM"
+        }
+
+        return dateFormatter.date(from: "\(date) \(time) \(TimeZone.current.abbreviation()!)")
+    }
+
     // MARK: - START MOCKING
     func createMockEvents() -> [Event] {
-        let event1 = Event(id: 1, timeStart: "12:00 PM", timeEnd: "1:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event2 = Event(id: 2, timeStart: "1:00 PM", timeEnd: "5:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event3 = Event(id: 3, timeStart: "12:00 AM", timeEnd: "12:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event4 = Event(id: 1, timeStart: "1:00 PM", timeEnd: "5:00 PM", year: 2018, month: 6, day: 18, title: "Study Swift")
-        let event5 = Event(id: 1, timeStart: "5:00 PM", timeEnd: "5:30 PM", year: 2018, month: 5, day: 18, title: "Study Swift")
+        let event1 = Event(id: 1, startTime: "12:00 PM", endTime: "1:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
+        let event2 = Event(id: 2, startTime: "1:00 PM", endTime: "5:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
+        let event3 = Event(id: 3, startTime: "12:00 AM", endTime: "12:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
+        let event4 = Event(id: 1, startTime: "1:00 PM", endTime: "5:00 PM", year: 2018, month: 6, day: 18, title: "Study Swift")
+        let event5 = Event(id: 1, startTime: "5:00 PM", endTime: "5:30 PM", year: 2018, month: 5, day: 18, title: "Study Swift")
 
         return [event1, event2, event3, event4, event5, event1, event1]
     }

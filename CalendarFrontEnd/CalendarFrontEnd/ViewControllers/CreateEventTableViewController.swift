@@ -15,52 +15,42 @@ class CreateEventTableViewController: UITableViewController {
     @IBOutlet weak var endTimePicker: UIDatePicker!
     @IBOutlet weak var datePicker: UIDatePicker!
 
-    let dateFormatter = DateFormatter()
-
     var event: Event?
     var dateString: String?
+    var dateManager: DateManager!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         titleTextField.delegate = self
 
         populateFields()
-        print(eventTimeStringToDateComponents(event!.timeStart))
 
         print(String(describing: event), String(describing: dateString))
-        print(startTimePicker.date)
     }
 
     @IBAction func finishButtonTapped(_ sender: Any) {
         createEvent()
-
-//        startTimePicker.setDate(<#T##date: Date##Date#>, animated: <#T##Bool#>)
     }
 
     func populateFields() {
         if let event = event {
             titleTextField.text = event.title
 
-            //            makeDate(year: event.year, month: event.month, day: event.day, hr: <#T##Int#>, min: <#T##Int#>)
+            guard let startTime = dateManager.eventTimeStringToDate(dateString, event.startTime), let endTime = dateManager.eventTimeStringToDate(dateString, event.endTime) else { return }
 
+            startTimePicker.date = startTime
+            endTimePicker.date = endTime
+            datePicker.date = startTime
+        } else if let _ = dateString, let datePicked = dateManager.eventTimeStringToDate(dateString) {
+            datePicker.date = datePicked
         }
-
     }
 
-    func eventTimeStringToDateComponents(_ str: String) -> DateComponents {
 
-        dateFormatter.calendar = Calendar.current
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
-        let date = dateFormatter.date(from: "\(dateString!) \(event!.timeStart)")
-        
-        print(Date())
-
-        return DateComponents()
-//        return DateComponents(year: year, month: month, day: day, hour: hr, minute: min, second: sec)
-    }
 
     func createEvent() {
-
+        guard startTimePicker.date < endTimePicker.date && titleTextField.text != "" else { return }
+        print("Create!")
     }
 
     func makeDate(year: Int, month: Int, day: Int, hr: Int, min: Int) -> Date {

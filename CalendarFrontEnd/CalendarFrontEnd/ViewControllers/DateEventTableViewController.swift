@@ -11,19 +11,22 @@ import UIKit
 class DateEventTableViewController: UITableViewController {
 
     var dateStringLong: String!
-    var events: [Event]?
+    var sortedEvents = [Event]()
     var valueToPass: Event?
+    var dateManager: DateManager!
+    var events: [Event]? {
+        didSet {
+            events?.sort(by: {
+                dateManager.eventTimeStringToDate(navigationItem.title, $0.startTime)! < dateManager.eventTimeStringToDate(navigationItem.title, $1.startTime)!
+            })
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let nib = UINib(nibName: "EventTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "eventCell")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
 
@@ -36,7 +39,7 @@ class DateEventTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! EventTableViewCell
 
         if let event = events?[indexPath.row] {
-            cell.timeLabel.text = event.timeStart
+            cell.timeLabel.text = "\(event.startTime) - \(event.endTime) "
             cell.eventLabel.text = event.title
         }
 
@@ -57,9 +60,7 @@ class DateEventTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             //            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }  
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -90,6 +91,7 @@ class DateEventTableViewController: UITableViewController {
         if segue.identifier == "editEventAtDateSegue",
             let createEventTVC = segue.destination as? CreateEventTableViewController {
             createEventTVC.event = valueToPass
+            createEventTVC.dateManager = dateManager
             createEventTVC.dateString = navigationItem.title
         }
 
