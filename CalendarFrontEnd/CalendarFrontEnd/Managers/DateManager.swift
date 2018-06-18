@@ -122,11 +122,11 @@ class DateManager {
 
     // MARK: - START MOCKING
     func createMockEvents() -> [Event] {
-        let event1 = Event(id: 1, timeStart: "12:00 PM", timeEnd: "night", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event2 = Event(id: 2, timeStart: "1:00 PM", timeEnd: "night", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event3 = Event(id: 3, timeStart: "12:00 AM", timeEnd: "night", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event4 = Event(id: 1, timeStart: "morning", timeEnd: "night", year: 2018, month: 6, day: 18, title: "Study Swift")
-        let event5 = Event(id: 1, timeStart: "morning", timeEnd: "night", year: 2018, month: 5, day: 18, title: "Study Swift")
+        let event1 = Event(id: 1, timeStart: "12:00 PM", timeEnd: "1:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
+        let event2 = Event(id: 2, timeStart: "1:00 PM", timeEnd: "5:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
+        let event3 = Event(id: 3, timeStart: "12:00 AM", timeEnd: "12:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
+        let event4 = Event(id: 1, timeStart: "1:00 PM", timeEnd: "5:00 PM", year: 2018, month: 6, day: 18, title: "Study Swift")
+        let event5 = Event(id: 1, timeStart: "5:00 PM", timeEnd: "5:30 PM", year: 2018, month: 5, day: 18, title: "Study Swift")
 
         return [event1, event2, event3, event4, event5, event1, event1]
     }

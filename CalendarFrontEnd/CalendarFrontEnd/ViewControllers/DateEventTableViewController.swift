@@ -12,6 +12,7 @@ class DateEventTableViewController: UITableViewController {
 
     var dateStringLong: String!
     var events: [Event]?
+    var valueToPass: Event?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,9 +63,7 @@ class DateEventTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let createEventTVC = CreateEventTableViewController()
-        createEventTVC.event = events?[indexPath.row]
+        valueToPass = events?[indexPath.row]
         performSegue(withIdentifier: "editEventAtDateSegue", sender: self)
     }
 
@@ -87,18 +86,16 @@ class DateEventTableViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if segue.identifier == "editEventAtDateSegue",
-            let createEventTVC = segue.destination as? CreateEventTableViewController,
-            let tappedCell = sender as? EventTableViewCell,
-            let indexPathAtRow = tableView.indexPath(for: tappedCell)
-        {
-            createEventTVC.event = events?[indexPathAtRow.row]
-            createEventTVC.dateStringLong = dateStringLong
+            let createEventTVC = segue.destination as? CreateEventTableViewController {
+            createEventTVC.event = valueToPass
+            createEventTVC.dateString = navigationItem.title
         }
 
         if segue.identifier == "createEventAtDateSegue",
             let createEventTVC = segue.destination as? CreateEventTableViewController {
-            createEventTVC.dateStringLong = dateStringLong
+            createEventTVC.dateString = navigationItem.title
         }
 
     }

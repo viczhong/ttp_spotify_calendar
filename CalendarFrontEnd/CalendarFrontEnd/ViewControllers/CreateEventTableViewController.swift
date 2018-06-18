@@ -10,21 +10,65 @@ import UIKit
 
 class CreateEventTableViewController: UITableViewController {
 
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var startTimePicker: UIDatePicker!
+    @IBOutlet weak var endTimePicker: UIDatePicker!
+    @IBOutlet weak var datePicker: UIDatePicker!
+
+    let dateFormatter = DateFormatter()
+
     var event: Event?
-    var dateStringLong: String?
+    var dateString: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleTextField.delegate = self
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        populateFields()
+        print(eventTimeStringToDateComponents(event!.timeStart))
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        print(String(describing: event), String(describing: dateString))
+        print(startTimePicker.date)
     }
 
+    @IBAction func finishButtonTapped(_ sender: Any) {
+        createEvent()
 
+//        startTimePicker.setDate(<#T##date: Date##Date#>, animated: <#T##Bool#>)
+    }
 
+    func populateFields() {
+        if let event = event {
+            titleTextField.text = event.title
+
+            //            makeDate(year: event.year, month: event.month, day: event.day, hr: <#T##Int#>, min: <#T##Int#>)
+
+        }
+
+    }
+
+    func eventTimeStringToDateComponents(_ str: String) -> DateComponents {
+
+        dateFormatter.calendar = Calendar.current
+        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
+        let date = dateFormatter.date(from: "\(dateString!) \(event!.timeStart)")
+        
+        print(Date())
+
+        return DateComponents()
+//        return DateComponents(year: year, month: month, day: day, hour: hr, minute: min, second: sec)
+    }
+
+    func createEvent() {
+
+    }
+
+    func makeDate(year: Int, month: Int, day: Int, hr: Int, min: Int) -> Date {
+        let calendar = Calendar.current
+        // calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let components = DateComponents(year: year, month: month, day: day, hour: hr, minute: min)
+        return calendar.date(from: components)!
+    }
     // MARK: - Table view data source
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {
@@ -91,5 +135,9 @@ class CreateEventTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+
+extension CreateEventTableViewController: UITextFieldDelegate {
 
 }

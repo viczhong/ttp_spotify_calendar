@@ -389,8 +389,18 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Add Event" id="lgj-rJ-XZ8">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="kpa-N7-KoU"/>
-                        <barButtonItem key="rightBarButtonItem" title="Finish" id="Fb2-5S-8O6"/>
+                        <barButtonItem key="rightBarButtonItem" title="Finish" id="Fb2-5S-8O6">
+                            <connections>
+                                <action selector="finishButtonTapped:" destination="4dd-hF-xpz" id="DFA-uw-MPz"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="datePicker" destination="Jxs-Nu-hfU" id="nK3-iS-x6r"/>
+                        <outlet property="endTimePicker" destination="3VZ-YN-tav" id="44z-MJ-5ou"/>
+                        <outlet property="startTimePicker" destination="7zh-hc-Ko9" id="Ih4-K4-ySS"/>
+                        <outlet property="titleTextField" destination="3Nk-ni-vag" id="b44-pE-hfi"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uLv-Y4-4aK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
