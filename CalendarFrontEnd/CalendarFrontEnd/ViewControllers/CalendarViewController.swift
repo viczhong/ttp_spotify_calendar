@@ -94,7 +94,11 @@ extension CalendarViewController: UICollectionViewDelegate {
             let eventsTVC = segue.destination as? DateEventTableViewController,
             let tappedCell = sender as? DateCollectionViewCell,
             let indexPathAtCell = collectionView.indexPath(for: tappedCell) {
-            eventsTVC.navigationItem.title = dateArray[indexPathAtCell.row].dateStringLong
+            let dateAtCell = dateArray[indexPathAtCell.row]
+
+            guard let month = dateAtCell.month, let date = dateAtCell.date, let year = dateAtCell.year else { return }
+            eventsTVC.navigationItem.title = "\(month) \(date), \(year)"
+            eventsTVC.dateStringLong = dateAtCell.dateStringLong
             
             if let events = dateArray[indexPathAtCell.row].events {
                 eventsTVC.arrayOfEvents = events

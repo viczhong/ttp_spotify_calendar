@@ -13,5 +13,8 @@ struct DateEntry {
     let dateStringLong: String
     let placeholder: Bool
     let events: [Event]?
+    let month: String?
+    let date: Int?
+    let year: Int?
 
 }

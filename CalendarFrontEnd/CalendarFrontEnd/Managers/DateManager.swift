@@ -13,14 +13,17 @@ class DateManager {
     // MARK: Date-related properties
     let calender = Calendar.current
     let dateFormatter = DateFormatter()
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
     var daysArray = [Int?]()
     var numberOfDays = 0
     var placeholderDays = 0
-
     var monthYearString = "January"
     var screenRotation = ScreenRotation.portrait
     var eventsArray = [Event]()
     var monthDict = [Int : [Event]]()
+    var currentMonth = 0
+    var currentYear = 0
 
     // MARK: - Init
     init(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
@@ -30,6 +33,10 @@ class DateManager {
     func setUpMonth(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
         let year = calender.component(.year, from: date)
         let month = calender.component(.month, from: date)
+
+        currentMonth = month
+        currentYear = year
+
         let monthComponents = DateComponents(year: year, month: month, day: 1)
         let calculatedMonth = calender.date(from: monthComponents)!
         let range = calender.range(of: .day, in: .month, for: calculatedMonth)!
@@ -56,12 +63,12 @@ class DateManager {
 
         for day in 0..<daysArray.count {
             if let unwrappedDay = daysArray[day] {
-                let date = DateEntry(dateStringShort: "\(weekDaysShort[day % 7]) - \(unwrappedDay)", dateStringLong: "\(weekDaysLong[day % 7]) - \(unwrappedDay)", placeholder: false, events: monthDict[actualDateCount])
+                let date = DateEntry(dateStringShort: "\(weekDaysShort[day % 7]) - \(unwrappedDay)", dateStringLong: "\(weekDaysLong[day % 7]) - \(unwrappedDay)", placeholder: false, events: monthDict[actualDateCount], month: months[currentMonth - 1], date: actualDateCount, year: currentYear)
 
                 dateArray.append(date)
                 actualDateCount += 1
             } else {
-                let date = DateEntry(dateStringShort: weekDaysShort[day % 7], dateStringLong: weekDaysLong[day % 7], placeholder: true, events: nil)
+                let date = DateEntry(dateStringShort: weekDaysShort[day % 7], dateStringLong: weekDaysLong[day % 7], placeholder: true, events: nil, month: nil, date: nil, year: nil)
                 
                 dateArray.append(date)
             }
@@ -71,7 +78,7 @@ class DateManager {
     }
 
     func calcuateMonthAndYear(_ month: Int, _ year: Int) {
-        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
 
         monthYearString = "\(months[month - 1]), \(year)"
     }
