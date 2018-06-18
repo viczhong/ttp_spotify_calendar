@@ -15,7 +15,7 @@ struct Event: Codable {
     let year: Int
     let month: Int
     let day: Int
-    let description: String
+    let title: String
 
     private enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -24,6 +24,6 @@ struct Event: Codable {
         case year = "year"
         case month = "month"
         case day = "day"
-        case description = "description"
+        case title = "title"
     }
 }

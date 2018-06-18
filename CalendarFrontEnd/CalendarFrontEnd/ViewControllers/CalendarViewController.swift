@@ -101,7 +101,7 @@ extension CalendarViewController: UICollectionViewDelegate {
             eventsTVC.dateStringLong = dateAtCell.dateStringLong
             
             if let events = dateArray[indexPathAtCell.row].events {
-                eventsTVC.arrayOfEvents = events
+                eventsTVC.events = events
                  print(events.count)
             }
         }
@@ -136,7 +136,7 @@ extension CalendarViewController: UICollectionViewDataSource {
                         break
                     }
 
-                    eventLines[x]?.text = "\(events[x].timeStart) - \(events[x].description)"
+                    eventLines[x]?.text = "\(events[x].timeStart) - \(events[x].title)"
                 }
             }
         }
