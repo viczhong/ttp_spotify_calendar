@@ -9,7 +9,7 @@
 import Foundation
 
 struct Event: Codable {
-    let id: Int
+    let id: String?
     let startTime: String
     let endTime: String
     let year: Int
@@ -18,7 +18,7 @@ struct Event: Codable {
     let title: String
 
     private enum CodingKeys: String, CodingKey {
-        case id = "id"
+        case id = "_id"
         case startTime = "start_time"
         case endTime = "end_time"
         case year = "year"

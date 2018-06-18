@@ -10,9 +10,9 @@ import Foundation
 
 class APIRequestManager {
 
-    func performDataTask(_ type: RequestType, events: [Event]?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func performDataTask(_ type: RequestType, events: [Event]?, completionHandler: @escaping (Data?) -> Void) {
 
-        guard let url = URL(string: "Heroku URL Here") else { return }
+        guard let url = URL(string: "https://peaceful-waters-80172.herokuapp.com/api/events") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = type.rawValue
 
@@ -22,11 +22,11 @@ class APIRequestManager {
 
         URLSession(configuration: .default).dataTask(with: request) { (data, response, error) in
             if let error = error {
-                completionHandler(nil, nil, error)
+                print(error.localizedDescription)
             }
 
             if let data = data {
-                completionHandler(data, nil, nil)
+                completionHandler(data)
             }
         }.resume()
     }

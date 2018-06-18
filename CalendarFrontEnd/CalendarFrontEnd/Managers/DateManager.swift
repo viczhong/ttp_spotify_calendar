@@ -25,11 +25,28 @@ class DateManager {
     var currentMonth = 0
     var currentYear = 0
 
+    let apiClient: APIRequestManager!
+
     // MARK: - Init
     init(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
         dateFormatter.calendar = Calendar.current
         dateFormatter.dateFormat = "MMM d, yyyy h:mm a zzz"
+        apiClient = APIRequestManager()
         setUpMonth(date, completion)
+    }
+
+    func getEvents(_ completion: @escaping ([Event]?) -> Void) {
+        apiClient.performDataTask(.get, events: nil) { data in
+            if let data = data {
+                do {
+                    let events = try JSONDecoder().decode([Event].self, from: data)
+                    completion(events)
+                }
+                catch {
+                    print(error)
+                }
+            }
+        }
     }
 
     func setUpMonth(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
@@ -50,10 +67,21 @@ class DateManager {
         print("number of days: \(range.count), placeholders: \(placeholderDays)")
         populateNumberOfDaysInCalendar()
         calcuateMonthAndYear(month, year)
-        eventsArray = createMockEvents()
-        filterEventsIntoMonth(month, year)
 
-        completion(populateDateEntries(screenRotation))
+
+        //eventsArray = createMockEvents()
+        getEvents { [unowned self] events in
+            DispatchQueue.main.async {
+                self.eventsArray = events!
+                self.filterEventsIntoMonth(month, year)
+                completion(self.populateDateEntries(self.screenRotation))
+            }
+        }
+
+        completion(self.populateDateEntries(self.screenRotation))
+
+
+
     }
 
     func populateDateEntries(_ rotation: ScreenRotation) -> [DateEntry] {
@@ -141,11 +169,11 @@ class DateManager {
 
     // MARK: - START MOCKING
     func createMockEvents() -> [Event] {
-        let event1 = Event(id: 1, startTime: "12:00 PM", endTime: "1:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event2 = Event(id: 2, startTime: "1:00 PM", endTime: "5:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event3 = Event(id: 3, startTime: "12:00 AM", endTime: "12:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event4 = Event(id: 1, startTime: "1:00 PM", endTime: "5:00 PM", year: 2018, month: 6, day: 18, title: "Study Swift")
-        let event5 = Event(id: 1, startTime: "5:00 PM", endTime: "5:30 PM", year: 2018, month: 5, day: 18, title: "Study Swift")
+        let event1 = Event(id: "1", startTime: "12:00 PM", endTime: "1:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
+        let event2 = Event(id: "2", startTime: "1:00 PM", endTime: "5:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
+        let event3 = Event(id: "3", startTime: "12:00 AM", endTime: "12:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
+        let event4 = Event(id: "1", startTime: "1:00 PM", endTime: "5:00 PM", year: 2018, month: 6, day: 18, title: "Study Swift")
+        let event5 = Event(id: "1", startTime: "5:00 PM", endTime: "5:30 PM", year: 2018, month: 5, day: 18, title: "Study Swift")
 
         return [event1, event2, event3, event4, event5, event1, event1]
     }
