@@ -18,4 +18,6 @@ Date View with Delete | All Events with Delete | Create / Edit Screen
 
 ## Backend
 
-Made with Heroku with Node and MongoDB. Deployed at [https://warm-shore-97050.herokuapp.com/api/events/](https://warm-shore-97050.herokuapp.com/api/events/)
+Made with Heroku with Angular CLI and MongoDB. Deployed at [https://warm-shore-97050.herokuapp.com/api/events/](https://warm-shore-97050.herokuapp.com/api/events/)
+
+P.S. Left out 300 mb of Node, e2e, and misc files to save space so cloning this project isn't a nightmare. 
