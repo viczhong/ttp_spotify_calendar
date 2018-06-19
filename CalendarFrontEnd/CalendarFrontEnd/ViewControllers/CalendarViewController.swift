@@ -102,6 +102,8 @@ extension CalendarViewController: UICollectionViewDelegate {
             eventsTVC.navigationItem.title = "\(month) \(date), \(year)"
             eventsTVC.dateStringLong = dateAtCell.dateStringLong
             eventsTVC.dateManager = dateManager
+            eventsTVC.day = date
+            eventsTVC.year = year
             
             if let events = dateArray[indexPathAtCell.row].events {
                 eventsTVC.events = events

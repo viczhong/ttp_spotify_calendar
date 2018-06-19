@@ -12,6 +12,9 @@ class DateEventTableViewController: UITableViewController {
 
     var dateStringLong: String!
     var valueToPass: Event?
+    var month: Int!
+    var day: Int!
+    var year: Int!
     var dateManager: DateManager!
     var events: [Event]? {
         didSet {
@@ -30,8 +33,19 @@ class DateEventTableViewController: UITableViewController {
 
         let nib = UINib(nibName: "EventTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "eventCell")
+
+        month = dateManager.currentMonth
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        dateManager.getEventsAndFilterIntoDate(month, day, year) { (events) in
+            DispatchQueue.main.async {
+                self.events = events
+            }
+        }
+    }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -18,6 +18,7 @@ class APIRequestManager {
         }
         
         guard let url = URL(string: urlString) else { return }
+
         var request = URLRequest(url: url)
         
         request.addValue("application/json", forHTTPHeaderField: "Accept")

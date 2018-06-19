@@ -32,28 +32,16 @@ class AllEventsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
-        dateManager.apiClient.performDataTask(.Get, eventToPost: nil) { [weak self] (data) in
+        dateManager.getEvents { [weak self] (events) in
             DispatchQueue.main.async {
-                if let data = data {
-                    do {
-                        let events = try JSONDecoder().decode([Event].self, from: data)
-                        self?.events = events
-                    }
-                    catch {
-                        print(error.localizedDescription)
-                    }
+                if let events = events {
+                    self?.events = events
                 }
             }
         }
     }
 
-
     // MARK: - Table view data source
-
-    //    override func numberOfSections(in tableView: UITableView) -> Int {
-    //        // #warning Incomplete implementation, return the number of sections
-    //        return 0
-    //    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sortedEvents.count
@@ -72,7 +60,6 @@ class AllEventsTableViewController: UITableViewController {
         return cell
     }
 
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             dateManager.delete(sortedEvents[indexPath.row]) { [weak self] (data) in

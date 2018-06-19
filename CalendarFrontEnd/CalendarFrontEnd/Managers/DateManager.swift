@@ -14,55 +14,26 @@ class DateManager {
     let calender = Calendar.current
     let dateFormatter = DateFormatter()
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    var monthYearString = "January"
 
     var daysArray = [Int?]()
     var numberOfDays = 0
     var placeholderDays = 0
-    var monthYearString = "January"
     var screenRotation = ScreenRotation.portrait
     var eventsArray = [Event]()
     var monthDict = [Int : [Event]]()
     var currentMonth = 0
     var currentYear = 0
-
     var apiClient: APIRequestManager!
 
-    // MARK: - Init
+    // MARK: - Initialization
     init() {
         dateFormatter.calendar = Calendar.current
         dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
         apiClient = APIRequestManager()
     }
 
-    func dateToTimeStrings(_ date: Date) -> (String, String) {
-        dateFormatter.dateFormat = "MMMM d, yyyy"
-
-        let dateString1 = dateFormatter.string(from: date)
-
-        dateFormatter.dateFormat = "h:mm a"
-
-        let dateString2 = dateFormatter.string(from: date)
-
-        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
-        return (dateString1, dateString2)
-    }
-
-    func dateStringToTimeStrings(_ dateString: String) -> (String, String)? {
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
-        let convertedDate = dateFormatter.date(from: dateString)!
-
-        dateFormatter.dateFormat = "MMMM d, yyyy"
-
-        let dateString1 = dateFormatter.string(from: convertedDate)
-
-        dateFormatter.dateFormat = "h:mm a"
-
-        let dateString2 = dateFormatter.string(from: convertedDate)
-
-        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
-        return (dateString1, dateString2)
-    }
-
+    // MARK: - Calendar Setup and Date Routing
     func setUpMonth(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
         let year = calender.component(.year, from: date)
         let month = calender.component(.month, from: date)
@@ -116,14 +87,6 @@ class DateManager {
         return dateArray
     }
 
-    func calcuateMonthAndYear(_ month: Int, _ year: Int) {
-        monthYearString = "\(months[month - 1]), \(year)"
-    }
-
-    func getHeaderString() -> String {
-        return monthYearString
-    }
-
     func populateNumberOfDaysInCalendar() {
         daysArray.removeAll()
 
@@ -136,25 +99,34 @@ class DateManager {
         }
     }
 
-    func rotated(_ rotation: ScreenRotation, _ completion: @escaping () -> Void) {
-        screenRotation = rotation
-        completion()
+    // MARK: - Date and String manipulation
+    func dateToTimeStrings(_ date: Date) -> (String, String) {
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+
+        let dateString1 = dateFormatter.string(from: date)
+
+        dateFormatter.dateFormat = "h:mm a"
+
+        let dateString2 = dateFormatter.string(from: date)
+
+        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
+        return (dateString1, dateString2)
     }
 
-    // MARK: - Event functions
-    func filterEventsIntoMonth(_ month: Int, _ year: Int) {
-        monthDict = [:]
+    func dateStringToTimeStrings(_ dateString: String) -> (String, String)? {
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+        let convertedDate = dateFormatter.date(from: dateString)!
 
-        for event in eventsArray {
-            guard event.month == month && event.year == year else { continue }
+        dateFormatter.dateFormat = "MMMM d, yyyy"
 
-            if let existingArray = monthDict[event.day] {
-                let eventsAtDay = existingArray + [event]
-                monthDict[event.day] = eventsAtDay.sorted { $0.startTime > $1.startTime }
-            } else {
-                monthDict[event.day] = [event]
-            }
-        }
+        let dateString1 = dateFormatter.string(from: convertedDate)
+
+        dateFormatter.dateFormat = "h:mm a"
+
+        let dateString2 = dateFormatter.string(from: convertedDate)
+
+        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
+        return (dateString1, dateString2)
     }
 
     func eventTimeStringToDate(_ dateString: String?, _ timeString: String? = nil) -> Date? {
@@ -174,6 +146,30 @@ class DateManager {
         return dateFormatter.date(from: "\(date) \(time) \(TimeZone.current.abbreviation()!)")
     }
 
+    func calcuateMonthAndYear(_ month: Int, _ year: Int) {
+        monthYearString = "\(months[month - 1]), \(year)"
+    }
+
+    func getHeaderString() -> String {
+        return monthYearString
+    }
+
+    // MARK: - Event functions
+    func filterEventsIntoMonth(_ month: Int, _ year: Int) {
+        monthDict = [:]
+
+        for event in eventsArray {
+            guard event.month == month && event.year == year else { continue }
+
+            if let existingArray = monthDict[event.day] {
+                let eventsAtDay = existingArray + [event]
+                monthDict[event.day] = eventsAtDay.sorted { $0.startTime > $1.startTime }
+            } else {
+                monthDict[event.day] = [event]
+            }
+        }
+    }
+
     // MARK: - API functions
     func getEvents(_ completion: @escaping ([Event]?) -> Void) {
         apiClient.performDataTask(.Get, eventToPost: nil) { (data) in
@@ -189,11 +185,22 @@ class DateManager {
         }
     }
 
+    func getEventsAndFilterIntoDate(_ month: Int, _ day: Int, _ year: Int, completion: @escaping ([Event]) -> Void) {
+        getEvents { (events) in
+
+            DispatchQueue.main.async {
+                if let events = events {
+                    let filteredEvents = events.filter{ $0.month == month && $0.day == day && $0.year == year }
+
+                    completion(filteredEvents)
+                }
+            }
+        }
+    }
+
     func performEventDataTask(_ title: String, startTimeDate: Date, endTimeDate: Date, date: Date, event: Event?, _ completion: @escaping () -> Void) {
 
         print("Create!")
-
-        // TODO: - Create parsing functions
 
         let startTime = dateToTimeStrings(startTimeDate).1
         let endTime = dateToTimeStrings(endTimeDate).1
@@ -241,6 +248,12 @@ class DateManager {
                 }
             }
         }
+    }
+
+    // MARK: - Screen Rotation
+    func rotated(_ rotation: ScreenRotation, _ completion: @escaping () -> Void) {
+        screenRotation = rotation
+        completion()
     }
 
 }

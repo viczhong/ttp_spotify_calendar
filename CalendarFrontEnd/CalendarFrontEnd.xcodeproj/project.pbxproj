@@ -176,8 +176,8 @@
 		9E939AB020D46AB200287F6E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				9EFA787E20D4D7700080D716 /* DateManager.swift */,
 				9E2199F920D84824002C3CA6 /* APIRequestManager.swift */,
+				9EFA787E20D4D7700080D716 /* DateManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -185,8 +185,8 @@
 		9EFA788320D5086F0080D716 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				9EFA788420D508800080D716 /* ScreenRotation.swift */,
 				9E2199FB20D848B1002C3CA6 /* RequestType.swift */,
+				9EFA788420D508800080D716 /* ScreenRotation.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
