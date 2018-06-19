@@ -10,7 +10,7 @@ import UIKit
 
 class AllEventsTableViewController: UITableViewController {
 
-    var dateManager = DateManager()
+    var dateManager = DateManager(APIRequestManager())
     var events = [Event]() {
         didSet {
             sortedEvents = events.sorted { $0.dateTimeString < $1.dateTimeString}

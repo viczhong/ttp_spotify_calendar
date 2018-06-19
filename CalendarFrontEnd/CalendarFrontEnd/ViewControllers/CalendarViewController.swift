@@ -23,7 +23,7 @@ class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dateManager = DateManager()
+        dateManager = DateManager(APIRequestManager())
 
         dateManager.setUpMonth(datePicker.date) { [weak self] dateArray in
             self?.dateArray = dateArray
@@ -137,7 +137,7 @@ extension CalendarViewController: UICollectionViewDataSource {
             if let events = dateAtCell.events {
                 for x in 0..<events.count {
                     guard x != 3 else {
-                        eventLines[x]?.text = "+ \(events.count - x + 1) more event(s)"
+                        eventLines[x]?.text = "+ \(events.count - x) more event(s)"
                         break
                     }
 

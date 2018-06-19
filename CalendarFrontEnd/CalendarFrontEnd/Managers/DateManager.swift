@@ -27,10 +27,10 @@ class DateManager {
     var apiClient: APIRequestManager!
 
     // MARK: - Initialization
-    init() {
+    init(_ apiRequestManager: APIRequestManager) {
         dateFormatter.calendar = Calendar.current
         dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
-        apiClient = APIRequestManager()
+        apiClient = apiRequestManager
     }
 
     // MARK: - Calendar Setup and Date Routing
