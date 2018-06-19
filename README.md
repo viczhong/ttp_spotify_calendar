@@ -1,3 +1,6 @@
+
+
+
 # TTP Spotify Calendar
 
 In this section, you'll be building a calendar application. How you build it is up to you, but the application must include the specs outlined below. Please complete the app build either for iOS, Android, or Web, depending on the role that you've indicated your most interested in.
