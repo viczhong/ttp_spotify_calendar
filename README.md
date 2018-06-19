@@ -18,4 +18,4 @@ Date View with Delete | All Events with Delete | Create / Edit Screen
 
 ## Backend
 
-Made with Heroku, deployed at [https://warm-shore-97050.herokuapp.com/api/events/](https://warm-shore-97050.herokuapp.com/api/events/)
+Made with Heroku with Node and MongoDB. Deployed at [https://warm-shore-97050.herokuapp.com/api/events/](https://warm-shore-97050.herokuapp.com/api/events/)
