@@ -4,7 +4,7 @@ Another year, another TTP project!
 
 ## Run
 
-Open `~/CalendarFrontEnd/CalendarFrontEnd.xcodeproj` and run the project.
+Open `~/CalendarFrontEnd/CalendarFrontEnd.xcodeproj` with Xcode and run the project.
 
 ## Screens
 
@@ -16,7 +16,11 @@ Date View with Delete | All Events with Delete | Create / Edit Screen
 --- | --- | ---
 ![Date Screen](images/date.png) | ![All Events](images/allevents.png) | ![Create Screen](images/addeditscreen.png)
 
-## Backend
+## FrontEnd
+
+Made with Swift 4 with no imported libraries for max compatibility, using a combination of MVC and MVVM (for reusability and easier testing). 
+
+## BackEnd
 
 Made with Heroku with Angular CLI and MongoDB. Deployed at [https://warm-shore-97050.herokuapp.com/api/events/](https://warm-shore-97050.herokuapp.com/api/events/)
 

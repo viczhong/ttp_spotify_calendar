@@ -9,7 +9,10 @@
 import Foundation
 
 class APIRequestManager {
-    
+
+    // For mocking with tests
+    var defaultSession: MockableURLSession = URLSession(configuration: .default)
+
     func performDataTask(_ type: RequestType, eventToPost event: Event?, completionHandler completion: @escaping (Data?) -> Void) {
         
         var urlString = "https://warm-shore-97050.herokuapp.com/api/events/"
@@ -36,7 +39,7 @@ class APIRequestManager {
             }
         }
 
-        URLSession(configuration: .default).dataTask(with: request) { (data, _, error) in
+        defaultSession.dataTask(with: request) { (data, _, error) in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -44,7 +47,7 @@ class APIRequestManager {
             if let data = data {
                 completion(data)
             }
-            }.resume()
+        }.resume()
     }
     
     

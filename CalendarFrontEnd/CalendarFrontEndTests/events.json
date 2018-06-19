@@ -1,0 +1,92 @@
+ [
+  {
+  "_id": "5b285c9cf382f70014711373",
+  "end_time": "5:00 PM",
+  "day": 18,
+  "title": "Work on TTP App",
+  "month": 6,
+  "start_time": "11:00 AM",
+  "year": 2018,
+  "date_time": "2018-06-18 16:00:00 +0000"
+  },
+  {
+  "_id": "5b286680f382f70014711377",
+  "end_time": "10:32 PM",
+  "day": 18,
+  "title": "Eat Dinner",
+  "month": 6,
+  "start_time": "10:12 PM",
+  "year": 2018,
+  "date_time": "2018-06-19 02:12:00 +0000"
+  },
+  {
+  "_id": "5b286dd7f382f70014711379",
+  "end_time": "10:43 PM",
+  "day": 2,
+  "title": "What a fun coding party.",
+  "month": 6,
+  "start_time": "12:00 AM",
+  "year": 2018,
+  "date_time": "2018-06-02 04:00:00 +0000"
+  },
+  {
+  "_id": "5b287bcdf382f7001471137f",
+  "end_time": "11:43 PM",
+  "day": 23,
+  "title": "Retire",
+  "month": 6,
+  "start_time": "11:43 PM",
+  "year": 2021,
+  "date_time": "2021-06-24 03:43:00 +0000"
+  },
+  {
+  "_id": "5b287bf3f382f70014711380",
+  "end_time": "11:43 PM",
+  "day": 26,
+  "title": "Retire",
+  "month": 6,
+  "start_time": "11:43 PM",
+  "year": 2018,
+  "date_time": "2018-06-27 03:43:00 +0000"
+  },
+  {
+  "_id": "5b287c71f382f70014711382",
+  "end_time": "11:45 PM",
+  "day": 27,
+  "title": "Party!",
+  "month": 6,
+  "start_time": "11:45 PM",
+  "year": 2018,
+  "date_time": "2018-06-28 03:45:00 +0000"
+  },
+  {
+  "_id": "5b287c83f382f70014711383",
+  "end_time": "11:46 PM",
+  "day": 18,
+  "title": "Commit to repo.",
+  "month": 6,
+  "start_time": "11:46 PM",
+  "year": 2018,
+  "date_time": "2018-06-19 03:46:00 +0000"
+  },
+  {
+  "_id": "5b28826df382f70014711384",
+  "end_time": "12:11 AM",
+  "day": 27,
+  "title": "Relax!",
+  "month": 6,
+  "start_time": "12:11 AM",
+  "year": 2018,
+  "date_time": "2018-06-27 04:11:00 +0000"
+  },
+  {
+  "_id": "5b28845cf382f70014711386",
+  "end_time": "12:19 AM",
+  "day": 18,
+  "title": "Test some code",
+  "month": 5,
+  "start_time": "12:19 AM",
+  "year": 2018,
+  "date_time": "2018-06-18 04:19:00 +0000"
+  }
+  ]

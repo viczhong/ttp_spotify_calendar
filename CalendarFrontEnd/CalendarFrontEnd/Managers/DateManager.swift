@@ -53,11 +53,15 @@ class DateManager {
         populateNumberOfDaysInCalendar()
         calcuateMonthAndYear(month, year)
 
-        getEvents { [unowned self] events in
+        getEvents { [weak self] events in
             DispatchQueue.main.async {
-                self.eventsArray = events!
-                self.filterEventsIntoMonth(month, year)
-                completion(self.populateDateEntries(self.screenRotation))
+                if let events = events {
+                    self?.eventsArray = events
+                    self?.filterEventsIntoMonth(month, year)
+                    if let screenRotation = self?.screenRotation, let dates = self?.populateDateEntries(screenRotation) {
+                        completion(dates)
+                    }
+                }
             }
         }
 
@@ -199,9 +203,6 @@ class DateManager {
     }
 
     func performEventDataTask(_ title: String, startTimeDate: Date, endTimeDate: Date, date: Date, event: Event?, _ completion: @escaping () -> Void) {
-
-        print("Create!")
-
         let startTime = dateToTimeStrings(startTimeDate).1
         let endTime = dateToTimeStrings(endTimeDate).1
         let dateString = dateToTimeStrings(date).0
