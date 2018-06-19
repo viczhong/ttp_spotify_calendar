@@ -62,17 +62,9 @@ class AllEventsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            dateManager.delete(sortedEvents[indexPath.row]) { [weak self] (data) in
+            dateManager.delete(sortedEvents[indexPath.row], nil) { [weak self] (events) in
                 DispatchQueue.main.async {
-                    if let data = data {
-                        do {
-                            let events = try JSONDecoder().decode([Event].self, from: data)
-                            self?.events = events
-                        }
-                        catch {
-                            print(error.localizedDescription)
-                        }
-                    }
+                    self?.events = events
                 }
             }
         }

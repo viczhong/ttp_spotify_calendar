@@ -234,17 +234,21 @@ class DateManager {
         }
     }
 
-    func delete(_ event: Event, _ completion: @escaping (Data?) -> Void) {
+    func delete(_ event: Event, _ dateKnown: (month: Int, day: Int, year: Int)?, _ completion: @escaping ([Event]) -> Void) {
         apiClient.performDataTask(.Delete, eventToPost: event) { [weak self] (data) in
             DispatchQueue.main.async {
                 if let _ = data {
-                    self?.apiClient.performDataTask(.Get, eventToPost: nil, completionHandler: { (data) in
-                        DispatchQueue.main.async {
-                            if let data = data {
-                                completion(data)
+                    if let dateKnown = dateKnown {
+                        self?.getEventsAndFilterIntoDate(dateKnown.month, dateKnown.day, dateKnown.year, completion: { (events) in
+                            completion(events)
+                        })
+                    } else {
+                        self?.getEvents({ (events) in
+                            if let events = events {
+                                completion(events)
                             }
-                        }
-                    })
+                        })
+                    }
                 }
             }
         }
