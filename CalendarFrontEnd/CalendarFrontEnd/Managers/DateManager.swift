@@ -14,17 +14,17 @@ class DateManager {
     let calender = Calendar.current
     let dateFormatter = DateFormatter()
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    var monthYearString = "January"
 
+    var monthYearString = "January"
     var daysArray = [Int?]()
     var numberOfDays = 0
     var placeholderDays = 0
     var screenRotation = ScreenRotation.portrait
     var eventsArray = [Event]()
-    var monthDict = [Int : [Event]]()
     var currentMonth = 0
     var currentYear = 0
     var apiClient: APIRequestManager!
+    var monthDict = [Int : [Event]]()
 
     // MARK: - Initialization
     init(_ apiRequestManager: APIRequestManager) {
@@ -49,7 +49,6 @@ class DateManager {
         placeholderDays = firstDayWeekday - 1
         numberOfDays = range.count 
 
-        print("number of days: \(range.count), placeholders: \(placeholderDays)")
         populateNumberOfDaysInCalendar()
         calcuateMonthAndYear(month, year)
 

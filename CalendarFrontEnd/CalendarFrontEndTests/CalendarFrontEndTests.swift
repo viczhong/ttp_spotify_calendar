@@ -17,6 +17,7 @@ class CalendarFrontEndTests: XCTestCase {
         super.setUp()
         apiClientUnderTest = APIRequestManager()
         dateManagerUnderTest = DateManager(apiClientUnderTest)
+        dateManagerUnderTest.dateFormatter.timeZone = TimeZone(abbreviation: "EDT")
 
         let testBundle = Bundle(for: type(of: self))
         let path = testBundle.path(forResource: "events", ofType: "json")
