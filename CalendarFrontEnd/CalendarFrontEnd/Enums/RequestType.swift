@@ -9,9 +9,8 @@
 import Foundation
 
 enum RequestType: String {
-    case get = "GET"
-    case post = "POST"
-    case patch = "PATCH"
-    case PUT = "PUT"
-    case delete = "DELETE"
+    case Get = "GET"
+    case Post = "POST"
+    case Put = "PUT"
+    case Delete = "DELETE"
 }

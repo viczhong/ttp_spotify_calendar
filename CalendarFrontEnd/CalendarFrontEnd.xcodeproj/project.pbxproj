@@ -21,6 +21,7 @@
 		9E939AAA20D468AE00287F6E /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AA920D468AE00287F6E /* Month.swift */; };
 		9E939AAC20D468B600287F6E /* DateEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AAB20D468B600287F6E /* DateEntry.swift */; };
 		9E939AAE20D46A4B00287F6E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AAD20D46A4B00287F6E /* Event.swift */; };
+		9EB53B1120D8A5E8004C9FBA /* AllEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB53B1020D8A5E8004C9FBA /* AllEventsTableViewController.swift */; };
 		9EFA787B20D4CE0D0080D716 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFA787A20D4CE0D0080D716 /* CalendarViewController.swift */; };
 		9EFA787F20D4D7700080D716 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFA787E20D4D7700080D716 /* DateManager.swift */; };
 		9EFA788220D4E98C0080D716 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFA788120D4E98C0080D716 /* DateCollectionViewCell.swift */; };
@@ -56,6 +57,7 @@
 		9E939AA920D468AE00287F6E /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		9E939AAB20D468B600287F6E /* DateEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEntry.swift; sourceTree = "<group>"; };
 		9E939AAD20D46A4B00287F6E /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		9EB53B1020D8A5E8004C9FBA /* AllEventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsTableViewController.swift; sourceTree = "<group>"; };
 		9EFA787A20D4CE0D0080D716 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9EFA787E20D4D7700080D716 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		9EFA788120D4E98C0080D716 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -153,9 +155,10 @@
 		9E939AA820D4689100287F6E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9EB53B1020D8A5E8004C9FBA /* AllEventsTableViewController.swift */,
 				9EFA787A20D4CE0D0080D716 /* CalendarViewController.swift */,
-				9E6954E220D62ECC00A30D63 /* DateEventTableViewController.swift */,
 				9E2199F520D71A9A002C3CA6 /* CreateEventTableViewController.swift */,
+				9E6954E220D62ECC00A30D63 /* DateEventTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				9E939AAA20D468AE00287F6E /* Month.swift in Sources */,
 				9E939AAC20D468B600287F6E /* DateEntry.swift in Sources */,
 				9E939AAE20D46A4B00287F6E /* Event.swift in Sources */,
+				9EB53B1120D8A5E8004C9FBA /* AllEventsTableViewController.swift in Sources */,
 				9EFA788220D4E98C0080D716 /* DateCollectionViewCell.swift in Sources */,
 				9E2199F620D71A9A002C3CA6 /* CreateEventTableViewController.swift in Sources */,
 				9EFA788520D508800080D716 /* ScreenRotation.swift in Sources */,

@@ -200,21 +200,11 @@
         <!--Events-->
         <scene sceneID="AvJ-vy-cmQ">
             <objects>
-                <tableViewController id="ckB-aV-t4w" sceneMemberID="viewController">
+                <tableViewController id="ckB-aV-t4w" customClass="AllEventsTableViewController" customModule="CalendarFrontEnd" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="g6x-p1-iU2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" rowHeight="94" id="ZAf-bg-YIe">
-                                <rect key="frame" x="0.0" y="28" width="375" height="94"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZAf-bg-YIe" id="hTJ-jq-mgX">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="93.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="ckB-aV-t4w" id="lds-qz-CuG"/>
                             <outlet property="delegate" destination="ckB-aV-t4w" id="h2A-Jf-sCJ"/>
@@ -223,7 +213,7 @@
                     <navigationItem key="navigationItem" title="Events" id="G5A-wz-at9">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qsu-qX-yNt">
                             <connections>
-                                <segue destination="4dd-hF-xpz" kind="show" id="3jT-1n-ioI"/>
+                                <segue destination="4dd-hF-xpz" kind="show" identifier="addEventSegue" id="3jT-1n-ioI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -469,6 +459,6 @@
         <image name="events" width="13" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="W7L-6b-Y7d"/>
+        <segue reference="3jT-1n-ioI"/>
     </inferredMetricsTieBreakers>
 </document>

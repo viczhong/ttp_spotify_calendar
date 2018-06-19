@@ -25,28 +25,42 @@ class DateManager {
     var currentMonth = 0
     var currentYear = 0
 
-    let apiClient: APIRequestManager!
+    var apiClient: APIRequestManager!
 
     // MARK: - Init
-    init(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
+    init() {
         dateFormatter.calendar = Calendar.current
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a zzz"
+        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
         apiClient = APIRequestManager()
-        setUpMonth(date, completion)
     }
 
-    func getEvents(_ completion: @escaping ([Event]?) -> Void) {
-        apiClient.performDataTask(.get, events: nil) { data in
-            if let data = data {
-                do {
-                    let events = try JSONDecoder().decode([Event].self, from: data)
-                    completion(events)
-                }
-                catch {
-                    print(error)
-                }
-            }
-        }
+    func dateToTimeStrings(_ date: Date) -> (String, String) {
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+
+        let dateString1 = dateFormatter.string(from: date)
+
+        dateFormatter.dateFormat = "h:mm a"
+
+        let dateString2 = dateFormatter.string(from: date)
+
+        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
+        return (dateString1, dateString2)
+    }
+
+    func dateStringToTimeStrings(_ dateString: String) -> (String, String)? {
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+        let convertedDate = dateFormatter.date(from: dateString)!
+
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+
+        let dateString1 = dateFormatter.string(from: convertedDate)
+
+        dateFormatter.dateFormat = "h:mm a"
+
+        let dateString2 = dateFormatter.string(from: convertedDate)
+
+        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
+        return (dateString1, dateString2)
     }
 
     func setUpMonth(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
@@ -68,8 +82,6 @@ class DateManager {
         populateNumberOfDaysInCalendar()
         calcuateMonthAndYear(month, year)
 
-
-        //eventsArray = createMockEvents()
         getEvents { [unowned self] events in
             DispatchQueue.main.async {
                 self.eventsArray = events!
@@ -79,9 +91,6 @@ class DateManager {
         }
 
         completion(self.populateDateEntries(self.screenRotation))
-
-
-
     }
 
     func populateDateEntries(_ rotation: ScreenRotation) -> [DateEntry] {
@@ -108,8 +117,6 @@ class DateManager {
     }
 
     func calcuateMonthAndYear(_ month: Int, _ year: Int) {
-
-
         monthYearString = "\(months[month - 1]), \(year)"
     }
 
@@ -167,15 +174,73 @@ class DateManager {
         return dateFormatter.date(from: "\(date) \(time) \(TimeZone.current.abbreviation()!)")
     }
 
-    // MARK: - START MOCKING
-    func createMockEvents() -> [Event] {
-        let event1 = Event(id: "1", startTime: "12:00 PM", endTime: "1:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event2 = Event(id: "2", startTime: "1:00 PM", endTime: "5:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event3 = Event(id: "3", startTime: "12:00 AM", endTime: "12:00 PM", year: 2018, month: 6, day: 1, title: "Study Swift")
-        let event4 = Event(id: "1", startTime: "1:00 PM", endTime: "5:00 PM", year: 2018, month: 6, day: 18, title: "Study Swift")
-        let event5 = Event(id: "1", startTime: "5:00 PM", endTime: "5:30 PM", year: 2018, month: 5, day: 18, title: "Study Swift")
-
-        return [event1, event2, event3, event4, event5, event1, event1]
+    // MARK: - API functions
+    func getEvents(_ completion: @escaping ([Event]?) -> Void) {
+        apiClient.performDataTask(.Get, eventToPost: nil) { (data) in
+            if let data = data {
+                do {
+                    let events = try JSONDecoder().decode([Event].self, from: data)
+                    completion(events)
+                }
+                catch {
+                    print(error)
+                }
+            }
+        }
     }
-    // MARK: - END MOCKING
+
+    func performEventDataTask(_ title: String, startTimeDate: Date, endTimeDate: Date, date: Date, event: Event?, _ completion: @escaping () -> Void) {
+
+        print("Create!")
+
+        // TODO: - Create parsing functions
+
+        let startTime = dateToTimeStrings(startTimeDate).1
+        let endTime = dateToTimeStrings(endTimeDate).1
+        let dateString = dateToTimeStrings(date).0
+
+        guard let dateForDateString = eventTimeStringToDate(dateString, startTime) else { return }
+
+        let year = calender.component(.year, from: date)
+        let month = calender.component(.month, from: date)
+        let day = calender.component(.day, from: date)
+
+        var requestType: RequestType!
+
+        var id: String?
+
+        if let eventID = event?.id {
+            id = eventID
+            requestType = .Put
+        } else {
+            requestType = .Post
+        }
+
+        let builtEvent = Event(id: id, startTime: startTime, endTime: endTime, year: year, month: month, day: day, title: title, dateTimeString: String(describing: dateForDateString))
+
+        apiClient.performDataTask(requestType, eventToPost: builtEvent) { (data) in
+            DispatchQueue.main.async {
+                if let _ = data {
+                    completion()
+                }
+            }
+        }
+    }
+
+    func delete(_ event: Event, _ completion: @escaping (Data?) -> Void) {
+        apiClient.performDataTask(.Delete, eventToPost: event) { [weak self] (data) in
+            DispatchQueue.main.async {
+                if let _ = data {
+                    self?.apiClient.performDataTask(.Get, eventToPost: nil, completionHandler: { (data) in
+                        DispatchQueue.main.async {
+                            if let data = data {
+                                completion(data)
+                            }
+                        }
+                    })
+                }
+            }
+        }
+    }
+
 }

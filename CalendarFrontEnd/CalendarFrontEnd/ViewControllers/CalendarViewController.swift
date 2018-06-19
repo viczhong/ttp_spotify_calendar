@@ -23,10 +23,12 @@ class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dateManager = DateManager(datePicker.date) { [weak self] dateArray in
+        dateManager = DateManager()
+
+        dateManager.setUpMonth(datePicker.date) { [weak self] dateArray in
             self?.dateArray = dateArray
         }
-
+        
         collectionView.delegate = self
         collectionView.dataSource = self
 
