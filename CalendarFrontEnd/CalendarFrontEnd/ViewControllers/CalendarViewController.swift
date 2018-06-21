@@ -24,17 +24,10 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
 
         dateManager = DateManager(APIRequestManager())
-
-//        dateManager.setUpMonth(datePicker.selectedRow(inComponent: 0) + 1, dateManager.yearArray[datePicker.selectedRow(inComponent: 1)]) { [weak self] dateArray in
-//            self?.dateArray = dateArray
-//        }
-
         collectionView.delegate = self
         collectionView.dataSource = self
         datePicker.delegate = self
         datePicker.dataSource = self
-
-        navigationItem.title = dateManager.getHeaderString()
 
         setDatePicker()
     }
@@ -44,6 +37,7 @@ class CalendarViewController: UIViewController {
 
         dateManager.setUpMonth(datePicker.selectedRow(inComponent: 0) + 1, dateManager.yearArray[datePicker.selectedRow(inComponent: 1)]) { [weak self] dateArray in
             self?.dateArray = dateArray
+            self?.navigationItem.title = self?.dateManager.getHeaderString()
         }
     }
 
@@ -198,6 +192,7 @@ extension CalendarViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         dateManager.setUpMonth(datePicker.selectedRow(inComponent: 0) + 1, dateManager.yearArray[datePicker.selectedRow(inComponent: 1)]) { [weak self] (dates) in
             self?.dateArray = dates
+            self?.navigationItem.title = self?.dateManager.getHeaderString()
         }
     }
 }
