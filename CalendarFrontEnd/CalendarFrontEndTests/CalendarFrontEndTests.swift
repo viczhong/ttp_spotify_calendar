@@ -53,9 +53,7 @@ class CalendarFrontEndTests: XCTestCase {
     }
 
     func test_setUpMonth() {
-        let date = Date(timeIntervalSinceReferenceDate: TimeInterval(551080020.0))
-
-        dateManagerUnderTest.setUpMonth(date) { (dates) in
+        dateManagerUnderTest.setUpMonth(6, 2018) { (dates) in
         }
 
         XCTAssert(dateManagerUnderTest.currentMonth == 6)
@@ -65,9 +63,7 @@ class CalendarFrontEndTests: XCTestCase {
     }
 
     func test_populateDateEntries() {
-        let date = Date(timeIntervalSinceReferenceDate: TimeInterval(551080020.0))
-
-        dateManagerUnderTest.setUpMonth(date) { (dates) in
+        dateManagerUnderTest.setUpMonth(6, 2018) { (dates) in
         }
         
         let dates = dateManagerUnderTest.populateDateEntries(.landscape)

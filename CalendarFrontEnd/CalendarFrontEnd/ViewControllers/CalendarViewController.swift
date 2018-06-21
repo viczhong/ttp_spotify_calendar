@@ -10,7 +10,7 @@ import UIKit
 
 class CalendarViewController: UIViewController {
 
-    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var datePicker: UIPickerView!
     @IBOutlet weak var collectionView: UICollectionView!
 
     var dateManager: DateManager!
@@ -25,22 +25,26 @@ class CalendarViewController: UIViewController {
 
         dateManager = DateManager(APIRequestManager())
 
-        dateManager.setUpMonth(datePicker.date) { [weak self] dateArray in
-            self?.dateArray = dateArray
-        }
-        
+//        dateManager.setUpMonth(datePicker.selectedRow(inComponent: 0) + 1, dateManager.yearArray[datePicker.selectedRow(inComponent: 1)]) { [weak self] dateArray in
+//            self?.dateArray = dateArray
+//        }
+
         collectionView.delegate = self
         collectionView.dataSource = self
+        datePicker.delegate = self
+        datePicker.dataSource = self
 
         navigationItem.title = dateManager.getHeaderString()
+
+        setDatePicker()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        dateManager.setUpMonth(datePicker.date, { [weak self] dateArray in
+        dateManager.setUpMonth(datePicker.selectedRow(inComponent: 0) + 1, dateManager.yearArray[datePicker.selectedRow(inComponent: 1)]) { [weak self] dateArray in
             self?.dateArray = dateArray
-        })
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -56,18 +60,17 @@ class CalendarViewController: UIViewController {
             rotation = .portrait
         }
 
-        dateManager.rotated(rotation) { [weak self] in
-            guard let date = self?.datePicker.date else { return }
-            self?.dateManager.setUpMonth(date, { dateArray in
-                self?.dateArray = dateArray
-            })
+        dateManager.rotated(rotation) { [unowned self] in
+            self.dateManager.setUpMonth(self.datePicker.selectedRow(inComponent: 0) + 1, self.dateManager.yearArray[self.datePicker.selectedRow(inComponent: 1)]) { dateArray in
+                self.dateArray = dateArray
+            }
         }
 
         flowLayout.invalidateLayout()
     }
 
     @IBAction func datePickerDateChanged(_ sender: Any) {
-        dateManager.setUpMonth(datePicker.date) {[weak self] dateArray in
+        dateManager.setUpMonth(datePicker.selectedRow(inComponent: 0) + 1, dateManager.yearArray[datePicker.selectedRow(inComponent: 1)]) {[weak self] dateArray in
             self?.dateArray = dateArray
 
             DispatchQueue.main.async {
@@ -75,6 +78,19 @@ class CalendarViewController: UIViewController {
                 self?.collectionView.reloadData()
             }
         }
+    }
+
+    func setDatePicker() {
+        let today = Date()
+
+        let month = dateManager.calender.component(.month, from: today) - 1
+        let yearToday = dateManager.calender.component(.year, from: today)
+
+        let year = dateManager.yearArray.index(of: yearToday)
+
+
+        datePicker.selectRow(month, inComponent: 0, animated: true)
+        datePicker.selectRow(year!, inComponent: 1, animated: true)
     }
 }
 
@@ -175,6 +191,38 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
 
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
+}
+
+extension CalendarViewController: UIPickerViewDelegate {
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        dateManager.setUpMonth(datePicker.selectedRow(inComponent: 0) + 1, dateManager.yearArray[datePicker.selectedRow(inComponent: 1)]) { [weak self] (dates) in
+            self?.dateArray = dates
+        }
+    }
+}
+
+extension CalendarViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return dateManager.months.count
+        } else {
+            return dateManager.yearArray.count
+        }
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return dateManager.months[row]
+        } else {
+            return String(dateManager.yearArray[row])
+        }
+    }
+
 }
 
 

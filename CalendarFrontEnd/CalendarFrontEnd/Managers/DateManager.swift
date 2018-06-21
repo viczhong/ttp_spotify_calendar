@@ -25,19 +25,21 @@ class DateManager {
     var currentYear = 0
     var apiClient: APIRequestManager!
     var monthDict = [Int : [Event]]()
+    var yearArray = [Int]()
 
     // MARK: - Initialization
     init(_ apiRequestManager: APIRequestManager) {
         dateFormatter.calendar = Calendar.current
         dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
         apiClient = apiRequestManager
+
+        for year in 2018...2028 {
+            yearArray.append(year)
+        }
     }
 
     // MARK: - Calendar Setup and Date Routing
-    func setUpMonth(_ date: Date, _ completion: @escaping ([DateEntry]) -> Void) {
-        let year = calender.component(.year, from: date)
-        let month = calender.component(.month, from: date)
-
+    func setUpMonth(_ month: Int, _ year: Int, _ completion: @escaping ([DateEntry]) -> Void) {
         currentMonth = month
         currentYear = year
 
@@ -76,7 +78,9 @@ class DateManager {
 
         for day in 0..<daysArray.count {
             if let unwrappedDay = daysArray[day] {
-                let date = DateEntry(dateStringShort: "\(weekDaysShort[day % 7]) - \(unwrappedDay)", dateStringLong: "\(weekDaysLong[day % 7]) - \(unwrappedDay)", placeholder: false, events: monthDict[actualDateCount], month: months[currentMonth - 1], date: actualDateCount, year: currentYear)
+                let dayOfWeek = day % 7
+
+                let date = DateEntry(dateStringShort: "\(weekDaysShort[dayOfWeek]) - \(unwrappedDay)", dateStringLong: "\(weekDaysLong[dayOfWeek]) - \(unwrappedDay)", placeholder: false, events: monthDict[actualDateCount], month: months[currentMonth - 1], date: actualDateCount, year: currentYear)
 
                 dateArray.append(date)
                 actualDateCount += 1

@@ -109,59 +109,31 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ADf-12-kkc">
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Owg-0b-omx">
                                 <rect key="frame" x="0.0" y="456" width="375" height="162"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" id="RUa-Wh-OXA"/>
-                                    <constraint firstAttribute="height" constant="162" id="kHc-d8-9qy"/>
-                                    <constraint firstAttribute="height" constant="162" id="mM7-1p-NyH"/>
+                                    <constraint firstAttribute="height" constant="162" id="5XB-lb-bCz"/>
                                 </constraints>
-                                <date key="date" timeIntervalSinceReferenceDate="550809600.869555">
-                                    <!--2018-06-16 02:40:00 +0000-->
-                                </date>
-                                <date key="minimumDate" timeIntervalSinceReferenceDate="-31582800">
-                                    <!--2000-01-01 11:00:00 +0000-->
-                                </date>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="RUa-Wh-OXA"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="RUa-Wh-OXA"/>
-                                        <exclude reference="kHc-d8-9qy"/>
-                                        <exclude reference="mM7-1p-NyH"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="datePickerDateChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="8iA-ss-gbl"/>
-                                </connections>
-                            </datePicker>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="JEr-3g-fwN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0aT-la-0ca"/>
-                            <constraint firstItem="ADf-12-kkc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9n6-tu-8rb"/>
-                            <constraint firstItem="ADf-12-kkc" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="b4h-iF-Wvr"/>
-                            <constraint firstItem="ADf-12-kkc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hkb-K6-sha"/>
+                            <constraint firstItem="Owg-0b-omx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZxH-Ei-TSN"/>
+                            <constraint firstItem="Owg-0b-omx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gCU-VN-7VX"/>
                             <constraint firstItem="JEr-3g-fwN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="lsa-gG-Rmq"/>
-                            <constraint firstItem="ADf-12-kkc" firstAttribute="top" secondItem="JEr-3g-fwN" secondAttribute="bottom" id="vkU-Y5-sGt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Owg-0b-omx" secondAttribute="bottom" id="oAa-a2-aQe"/>
+                            <constraint firstItem="Owg-0b-omx" firstAttribute="top" secondItem="JEr-3g-fwN" secondAttribute="bottom" id="vzS-sf-Xqc"/>
                             <constraint firstItem="JEr-3g-fwN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yok-xe-gd5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <variation key="heightClass=compact">
-                            <mask key="constraints">
-                                <include reference="vkU-Y5-sGt"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="50S-hM-oCy">
                         <barButtonItem key="backBarButtonItem" title="Back" id="7SE-RR-6q1"/>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="JEr-3g-fwN" id="ita-QF-bhj"/>
-                        <outlet property="datePicker" destination="ADf-12-kkc" id="6Hf-hY-Uvf"/>
+                        <outlet property="datePicker" destination="Owg-0b-omx" id="Dao-bp-Ifg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
