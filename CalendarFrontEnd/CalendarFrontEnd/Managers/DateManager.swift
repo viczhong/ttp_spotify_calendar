@@ -33,7 +33,7 @@ class DateManager {
         dateFormatter.dateFormat = "MMMM d, yyyy h:mm a zzz"
         apiClient = apiRequestManager
 
-        for year in 2018...2028 {
+        for year in 2016...2028 {
             yearArray.append(year)
         }
     }

@@ -112,8 +112,21 @@
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Owg-0b-omx">
                                 <rect key="frame" x="0.0" y="456" width="375" height="162"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="162" id="5XB-lb-bCz"/>
+                                    <constraint firstAttribute="height" constant="162" id="5XB-lb-bCz">
+                                        <variation key="heightClass=compact-widthClass=regular" constant="0.0"/>
+                                    </constraint>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Z6V-tc-gd5"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Z6V-tc-gd5"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="Z6V-tc-gd5"/>
+                                    </mask>
+                                </variation>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -127,6 +140,11 @@
                             <constraint firstItem="JEr-3g-fwN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yok-xe-gd5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <include reference="gCU-VN-7VX"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="50S-hM-oCy">
                         <barButtonItem key="backBarButtonItem" title="Back" id="7SE-RR-6q1"/>

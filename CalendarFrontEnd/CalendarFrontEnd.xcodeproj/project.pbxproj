@@ -18,7 +18,6 @@
 		9E939A8D20D4681700287F6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E939A8C20D4681700287F6E /* Assets.xcassets */; };
 		9E939A9020D4681700287F6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E939A8E20D4681700287F6E /* LaunchScreen.storyboard */; };
 		9E939A9B20D4681700287F6E /* CalendarFrontEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939A9A20D4681700287F6E /* CalendarFrontEndTests.swift */; };
-		9E939AAA20D468AE00287F6E /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AA920D468AE00287F6E /* Month.swift */; };
 		9E939AAC20D468B600287F6E /* DateEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AAB20D468B600287F6E /* DateEntry.swift */; };
 		9E939AAE20D46A4B00287F6E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E939AAD20D46A4B00287F6E /* Event.swift */; };
 		9EB53B1120D8A5E8004C9FBA /* AllEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB53B1020D8A5E8004C9FBA /* AllEventsTableViewController.swift */; };
@@ -56,7 +55,6 @@
 		9E939A9620D4681700287F6E /* CalendarFrontEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalendarFrontEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E939A9A20D4681700287F6E /* CalendarFrontEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFrontEndTests.swift; sourceTree = "<group>"; };
 		9E939A9C20D4681700287F6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E939AA920D468AE00287F6E /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		9E939AAB20D468B600287F6E /* DateEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEntry.swift; sourceTree = "<group>"; };
 		9E939AAD20D46A4B00287F6E /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		9EB53B1020D8A5E8004C9FBA /* AllEventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsTableViewController.swift; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 			children = (
 				9E939AAB20D468B600287F6E /* DateEntry.swift */,
 				9E939AAD20D46A4B00287F6E /* Event.swift */,
-				9E939AA920D468AE00287F6E /* Month.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -306,7 +303,6 @@
 				9EFA787F20D4D7700080D716 /* DateManager.swift in Sources */,
 				9EB53B1520D8CA30004C9FBA /* URLSessionTest.swift in Sources */,
 				9E939A8620D4681500287F6E /* AppDelegate.swift in Sources */,
-				9E939AAA20D468AE00287F6E /* Month.swift in Sources */,
 				9E939AAC20D468B600287F6E /* DateEntry.swift in Sources */,
 				9E939AAE20D46A4B00287F6E /* Event.swift in Sources */,
 				9EB53B1120D8A5E8004C9FBA /* AllEventsTableViewController.swift in Sources */,
