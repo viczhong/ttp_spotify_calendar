@@ -218,7 +218,7 @@ class DateManager {
 
         var requestType: RequestType!
 
-        var id: String?
+        var id: Int?
 
         if let eventID = event?.id {
             id = eventID

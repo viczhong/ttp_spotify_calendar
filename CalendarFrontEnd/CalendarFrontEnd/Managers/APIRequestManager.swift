@@ -15,9 +15,9 @@ class APIRequestManager {
 
     func performDataTask(_ type: RequestType, eventToPost event: Event?, completionHandler completion: @escaping (Data?) -> Void) {
         
-        var urlString = "https://warm-shore-97050.herokuapp.com/api/events/"
+        var urlString = "https://desolate-cliffs-10757.herokuapp.com/events/"
         if (type == .Put || type == .Delete), let id = event?.id {
-            urlString += id
+            urlString += "\(id)"
         }
         
         guard let url = URL(string: urlString) else { return }

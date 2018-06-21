@@ -22,6 +22,6 @@ Made with Swift 4 with no imported libraries for max compatibility, using a comb
 
 ## BackEnd
 
-Made with Heroku with Angular CLI and MongoDB. Deployed at [https://warm-shore-97050.herokuapp.com/api/events/](https://warm-shore-97050.herokuapp.com/api/events/)
+Made with Heroku with Angular CLI and MongoDB. Deployed at [https://desolate-cliffs-10757.herokuapp.com/events/](https://desolate-cliffs-10757.herokuapp.com/events/)
 
 P.S. Left out 300 mb of Node, e2e, and misc files to save space so cloning this project isn't a nightmare. 

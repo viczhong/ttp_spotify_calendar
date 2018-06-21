@@ -9,7 +9,7 @@
 import Foundation
 
 struct Event: Codable {
-    let id: String?
+    let id: Int?
     let startTime: String
     let endTime: String
     let year: Int
@@ -30,7 +30,7 @@ struct Event: Codable {
     }
 
     init(
-        id: String?,
+        id: Int?,
         startTime: String,
         endTime: String,
         year: Int,
@@ -51,7 +51,7 @@ struct Event: Codable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(String.self, forKey: .id)
+        id = try container.decode(Int.self, forKey: .id)
         startTime = try container.decode(String.self, forKey: .startTime)
         endTime = try container.decode(String.self, forKey: .endTime)
         year = try container.decode(Int.self, forKey: .year)
