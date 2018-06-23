@@ -23,12 +23,12 @@ Date View with Delete | All Events with Delete | Create / Edit Screen
 --- | --- | ---
 ![Date Screen](images/date.png) | ![All Events](images/allevents.png) | ![Create Screen](images/addeditscreen.png)
 
-## FrontEnd
+## Front End
 
-Made with Swift 4 with no imported libraries for max compatibility, using a combination of MVC and MVVM architecture (for reusability and easier unit testing). 
+Made with Swift 4 with no imported libraries for less dependencies, using a combination of MVC and MVVM architecture (for reusability and easier unit testing). 
 
-## BackEnd
+## Back End
 
-Made with Heroku with Angular CLI and MongoDB. Deployed at [https://desolate-cliffs-10757.herokuapp.com/events/](https://desolate-cliffs-10757.herokuapp.com/events/)
+Made with Heroku using Angular CLI, Node and MongoDB. Deployed at [https://desolate-cliffs-10757.herokuapp.com/events/](https://desolate-cliffs-10757.herokuapp.com/events/)
 
 P.S. Left out 300 mb of Node, e2e, and misc files to save space so cloning this project isn't a nightmare. 
