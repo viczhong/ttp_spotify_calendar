@@ -16,11 +16,14 @@ class AllEventsTableViewController: UITableViewController {
             sortedEvents = events.sorted { $0.dateTimeString < $1.dateTimeString}
         }
     }
+
     var sortedEvents = [Event]() {
         didSet {
             self.tableView.reloadData()
         }
     }
+
+    var valueToPass: Event?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,25 +36,7 @@ class AllEventsTableViewController: UITableViewController {
 
         dateManager = appDelegate.dateManager
 
-        dateManager.getEvents { [weak self] (_, events) in
-            DispatchQueue.main.async {
-                if let events = events {
-                    self?.events = events
-                }
-            }
-        }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-
-//        dateManager.getEvents { [weak self] (_, events) in
-//            DispatchQueue.main.async {
-//                if let events = events {
-//                    self?.events = events
-//                }
-//            }
-//        }
+        events = dateManager.eventsArray
     }
 
     // MARK: - Table view data source
@@ -83,6 +68,11 @@ class AllEventsTableViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        valueToPass = sortedEvents[indexPath.row]
+        performSegue(withIdentifier: "editEventSegue", sender: self)
+    }
+
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -90,16 +80,37 @@ class AllEventsTableViewController: UITableViewController {
             createEventTVC.dateManager = dateManager
             createEventTVC.delegate = self
         }
+
+        if segue.identifier == "editEventSegue",
+            let createEventTVC = segue.destination as? CreateEventTableViewController {
+            createEventTVC.dateManager = dateManager
+            createEventTVC.event = valueToPass
+            createEventTVC.delegate = self
+
+            if let value = valueToPass {
+                createEventTVC.dateString = dateManager.dateStringToTimeStrings(value.dateTimeString)?.0
+            }
+        }
     }
 
 }
 
-extension AllEventsTableViewController: EventManipulationDelegate {
+extension AllEventsTableViewController: CreateEventTableViewControllerDelegate {
     func createdEvent(_ event: Event) {
-        self.dateManager.eventsArray.append(event)
-        self.navigationController?.popViewController(animated: true)
-        self.events = self.dateManager.eventsArray
+        dateManager.eventsArray.append(event)
+        navigationController?.popViewController(animated: true)
+        events = dateManager.eventsArray
     }
 
+    func needsRefresh() {
+        navigationController?.popViewController(animated: true)
 
+        dateManager.getEvents { [weak self] (_, events) in
+            DispatchQueue.main.async {
+                if let events = events {
+                    self?.events = events
+                }
+            }
+        }
+    }
 }

@@ -207,6 +207,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="4dd-hF-xpz" kind="show" identifier="editEventSegue" id="k1l-l6-GNb"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ky4-ub-8ec" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -449,6 +452,6 @@
         <image name="events" width="13" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3jT-1n-ioI"/>
+        <segue reference="k1l-l6-GNb"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -125,7 +125,6 @@ extension CalendarViewController: UICollectionViewDelegate {
             
             if let events = dateArray[indexPathAtCell.row].events {
                 eventsTVC.events = events
-                 print(events.count)
             }
         }
     }

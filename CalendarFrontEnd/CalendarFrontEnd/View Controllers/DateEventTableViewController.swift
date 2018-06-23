@@ -37,16 +37,6 @@ class DateEventTableViewController: UITableViewController {
         month = dateManager.currentMonth
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        dateManager.getEventsAndFilterIntoDate(month, day, year) { (events) in
-            DispatchQueue.main.async {
-                self.events = events
-            }
-        }
-    }
-
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sortedEvents.count
@@ -85,6 +75,7 @@ class DateEventTableViewController: UITableViewController {
             createEventTVC.event = valueToPass
             createEventTVC.dateManager = dateManager
             createEventTVC.dateString = navigationItem.title
+            createEventTVC.delegate = self
         }
 
         if segue.identifier == "createEventAtDateSegue",
@@ -97,12 +88,22 @@ class DateEventTableViewController: UITableViewController {
 
 }
 
-extension DateEventTableViewController: EventManipulationDelegate {
+extension DateEventTableViewController: CreateEventTableViewControllerDelegate {
     func createdEvent(_ event: Event) {
         dateManager.eventsArray.append(event)
         navigationController?.popViewController(animated: true)
-        events?.append(event)
+        events = dateManager.filterIntoDate(month, day, year)
     }
 
+    func needsRefresh() {
+        self.navigationController?.popViewController(animated: true)
+
+        dateManager.getEventsAndFilterIntoDate(month, day, year) { (events) in
+            DispatchQueue.main.async {
+                self.events = events
+            }
+        }
+
+    }
 
 }

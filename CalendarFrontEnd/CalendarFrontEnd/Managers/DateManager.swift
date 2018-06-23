@@ -54,17 +54,6 @@ class DateManager {
         populateNumberOfDaysInCalendar()
         calcuateMonthAndYear(month, year)
 
-//        getEvents { [weak self] events in
-//            DispatchQueue.main.async {
-//                if let events = events {
-//                    self?.eventsArray = events
-//                    self?.filterEventsIntoMonth(month, year)
-//                    if let screenRotation = self?.screenRotation, let dates = self?.populateDateEntries(screenRotation) {
-//                        completion(dates)
-//                    }
-//                }
-//            }
-//        }
         filterEventsIntoMonth(month, year)
         completion(self.populateDateEntries(self.screenRotation))
     }
@@ -175,6 +164,12 @@ class DateManager {
                 monthDict[event.day] = [event]
             }
         }
+    }
+
+    func filterIntoDate(_ month: Int, _ day: Int, _ year: Int) -> [Event] {
+        let filteredEvents = eventsArray.filter{ $0.month == month && $0.day == day && $0.year == year }
+
+        return filteredEvents
     }
 
     // MARK: - API functions
