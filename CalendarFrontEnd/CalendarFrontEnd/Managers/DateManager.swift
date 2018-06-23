@@ -96,6 +96,7 @@ class DateManager {
     }
 
     // MARK: - Date and String manipulation
+
     func dateToTimeStrings(_ date: Date) -> (String, String) {
         dateFormatter.dateFormat = "MMMM d, yyyy"
 

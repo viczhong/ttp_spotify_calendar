@@ -43,18 +43,7 @@ class CreateEventTableViewController: UITableViewController {
     }
 
     @IBAction func finishButtonTapped(_ sender: Any) {
-        guard titleTextField.text != "" else { alertUser("Please enter a title!"); return }
-        guard startTimePicker.date < endTimePicker.date else { alertUser("Start time cannot be after end time!"); return }
-
-        dateManager.performEventDataTask(titleTextField.text!, startTimeDate: startTimePicker.date, endTimeDate: endTimePicker.date, date: datePicker.date, event: event) { [weak self] event in
-            DispatchQueue.main.async {
-                if let event = event {
-                    self?.delegate.createdEvent(event)
-                } else {
-                    self?.delegate.needsRefresh()
-                }
-            }
-        }
+        createEntry()
     }
 
     func populateFields() {
@@ -71,18 +60,26 @@ class CreateEventTableViewController: UITableViewController {
         }
     }
 
-    func makeDate(year: Int, month: Int, day: Int, hr: Int, min: Int) -> Date {
-        let calendar = Calendar.current
-        let components = DateComponents(year: year, month: month, day: day, hour: hr, minute: min)
-
-        return calendar.date(from: components)!
-    }
-
     func alertUser(_ message: String?) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+
+    func createEntry() {
+        guard titleTextField.text != "" else { alertUser("Please enter a title!"); return }
+        guard startTimePicker.date <= endTimePicker.date else { alertUser("Start time cannot occur after end time!"); return }
+
+        dateManager.performEventDataTask(titleTextField.text!, startTimeDate: startTimePicker.date, endTimeDate: endTimePicker.date, date: datePicker.date, event: event) { [weak self] event in
+            DispatchQueue.main.async {
+                if let event = event {
+                    self?.delegate.createdEvent(event)
+                } else {
+                    self?.delegate.needsRefresh()
+                }
+            }
+        }
     }
 }
 
