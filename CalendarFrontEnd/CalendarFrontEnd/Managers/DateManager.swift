@@ -213,7 +213,7 @@ class DateManager {
         }
     }
 
-    func performEventDataTask(_ title: String, startTimeDate: Date, endTimeDate: Date, date: Date, event: Event?, _ completion: @escaping () -> Void) {
+    func performEventDataTask(_ title: String, startTimeDate: Date, endTimeDate: Date, date: Date, event: Event?, _ completion: @escaping (Event?) -> Void) {
         let startTime = dateToTimeStrings(startTimeDate).1
         let endTime = dateToTimeStrings(endTimeDate).1
         let dateString = dateToTimeStrings(date).0
@@ -239,8 +239,9 @@ class DateManager {
 
         apiClient.performDataTask(requestType, eventToPost: builtEvent) { (data) in
             DispatchQueue.main.async {
-                if let _ = data {
-                    completion()
+                if let data = data {
+                    let event = try? JSONDecoder().decode(Event.self, from: data)
+                    completion(event)
                 }
             }
         }

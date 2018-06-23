@@ -25,7 +25,9 @@ class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dateManager = DateManager(APIRequestManager())
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        dateManager = appDelegate.dateManager
         collectionView.delegate = self
         collectionView.dataSource = self
         datePicker.delegate = self

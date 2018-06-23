@@ -110,7 +110,7 @@
 				9E939AA520D4686900287F6E /* Models */,
 				9E939AA720D4688300287F6E /* Storyboards */,
 				9E939AA620D4687100287F6E /* Supporting Files */,
-				9E939AA820D4689100287F6E /* ViewControllers */,
+				9E939AA820D4689100287F6E /* View Controllers */,
 				9E939AAF20D46AA700287F6E /* Views */,
 			);
 			path = CalendarFrontEnd;
@@ -155,7 +155,7 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		9E939AA820D4689100287F6E /* ViewControllers */ = {
+		9E939AA820D4689100287F6E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				9EB53B1020D8A5E8004C9FBA /* AllEventsTableViewController.swift */,
@@ -163,7 +163,7 @@
 				9E2199F520D71A9A002C3CA6 /* CreateEventTableViewController.swift */,
 				9E6954E220D62ECC00A30D63 /* DateEventTableViewController.swift */,
 			);
-			path = ViewControllers;
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		9E939AAF20D46AA700287F6E /* Views */ = {

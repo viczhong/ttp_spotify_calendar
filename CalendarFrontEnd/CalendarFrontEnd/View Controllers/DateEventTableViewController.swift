@@ -91,7 +91,18 @@ class DateEventTableViewController: UITableViewController {
             let createEventTVC = segue.destination as? CreateEventTableViewController {
             createEventTVC.dateManager = dateManager
             createEventTVC.dateString = navigationItem.title
+            createEventTVC.delegate = self
         }
     }
+
+}
+
+extension DateEventTableViewController: EventManipulationDelegate {
+    func createdEvent(_ event: Event) {
+        dateManager.eventsArray.append(event)
+        navigationController?.popViewController(animated: true)
+        events?.append(event)
+    }
+
 
 }

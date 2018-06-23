@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol EventManipulationDelegate {
+    func createdEvent(_ event: Event)
+}
+
 class CreateEventTableViewController: UITableViewController {
 
     @IBOutlet weak var titleTextField: UITextField!
@@ -15,6 +19,7 @@ class CreateEventTableViewController: UITableViewController {
     @IBOutlet weak var endTimePicker: UIDatePicker!
     @IBOutlet weak var datePicker: UIDatePicker!
 
+    var delegate: EventManipulationDelegate!
     var event: Event?
     var dateString: String?
     var dateManager: DateManager!
@@ -31,8 +36,11 @@ class CreateEventTableViewController: UITableViewController {
         guard titleTextField.text != "" else { alertUser("Please enter a title!"); return }
         guard startTimePicker.date < endTimePicker.date else { alertUser("Start time cannot be after end time!"); return }
 
-        dateManager.performEventDataTask(titleTextField.text!, startTimeDate: startTimePicker.date, endTimeDate: endTimePicker.date, date: datePicker.date, event: event) {
-            self.navigationController?.popViewController(animated: true)
+        dateManager.performEventDataTask(titleTextField.text!, startTimeDate: startTimePicker.date, endTimeDate: endTimePicker.date, date: datePicker.date, event: event) { [weak self] event in
+            guard let event = event else { return }
+            self?.delegate.createdEvent(event)
+//            self.navigationController?.popViewController(animated: true)
+            
         }
     }
 

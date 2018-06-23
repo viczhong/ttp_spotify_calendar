@@ -10,7 +10,7 @@ import UIKit
 
 class AllEventsTableViewController: UITableViewController {
 
-    var dateManager = DateManager(APIRequestManager())
+    var dateManager: DateManager!
     var events = [Event]() {
         didSet {
             sortedEvents = events.sorted { $0.dateTimeString < $1.dateTimeString}
@@ -26,11 +26,12 @@ class AllEventsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         let nib = UINib(nibName: "EventTableViewCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "eventCell")
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+        self.tableView.register(nib, forCellReuseIdentifier: "eventCell")
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        dateManager = appDelegate.dateManager
 
         dateManager.getEvents { [weak self] (_, events) in
             DispatchQueue.main.async {
@@ -39,6 +40,18 @@ class AllEventsTableViewController: UITableViewController {
                 }
             }
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+
+//        dateManager.getEvents { [weak self] (_, events) in
+//            DispatchQueue.main.async {
+//                if let events = events {
+//                    self?.events = events
+//                }
+//            }
+//        }
     }
 
     // MARK: - Table view data source
@@ -75,7 +88,18 @@ class AllEventsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addEventSegue", let createEventTVC = segue.destination as? CreateEventTableViewController {
             createEventTVC.dateManager = dateManager
+            createEventTVC.delegate = self
         }
     }
+
+}
+
+extension AllEventsTableViewController: EventManipulationDelegate {
+    func createdEvent(_ event: Event) {
+        self.dateManager.eventsArray.append(event)
+        self.navigationController?.popViewController(animated: true)
+        self.events = self.dateManager.eventsArray
+    }
+
 
 }
