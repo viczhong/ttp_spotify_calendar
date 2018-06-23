@@ -29,8 +29,17 @@ class CreateEventTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+
+        self.view.addGestureRecognizer(tap)
         apiClient = dateManager.apiClient
+        titleTextField.delegate = self
+
         populateFields()
+    }
+
+    @objc func dismissKeyboard() {
+        titleTextField.resignFirstResponder()
     }
 
     @IBAction func finishButtonTapped(_ sender: Any) {
@@ -74,5 +83,13 @@ class CreateEventTableViewController: UITableViewController {
 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension CreateEventTableViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+
+        return false
     }
 }
