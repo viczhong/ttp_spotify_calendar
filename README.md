@@ -1,10 +1,17 @@
 # TTP Spotify Calendar
 
-Another year, another TTP project!
+Another year, another TTP project for the Spotify Apprenticeship!
 
 ## Run
 
 Open `~/CalendarFrontEnd/CalendarFrontEnd.xcodeproj` with Xcode and run the project.
+
+## Bonus Features
+
+* Switch between months and years
+* Fits multiple events per box on a given day.
+* Can update/delete events by tapping on an existing event.
+* Shows correct days.
 
 ## Screens
 
@@ -18,7 +25,7 @@ Date View with Delete | All Events with Delete | Create / Edit Screen
 
 ## FrontEnd
 
-Made with Swift 4 with no imported libraries for max compatibility, using a combination of MVC and MVVM (for reusability and easier testing). 
+Made with Swift 4 with no imported libraries for max compatibility, using a combination of MVC and MVVM architecture (for reusability and easier unit testing). 
 
 ## BackEnd
 
