@@ -45,7 +45,7 @@ class CalendarFrontEndTests: XCTestCase {
         // when
         XCTAssertEqual(dateManagerUnderTest.eventsArray.count, 0, "searchResults should be empty before the data task runs")
 
-        dateManagerUnderTest.getEvents() { _ in
+        dateManagerUnderTest.getEvents() { (_, _) in
             promise.fulfill()
         }
 
@@ -53,7 +53,9 @@ class CalendarFrontEndTests: XCTestCase {
     }
 
     func test_setUpMonth() {
-        dateManagerUnderTest.setUpMonth(6, 2018) { (dates) in
+        dateManagerUnderTest.setUpMonth(6, 2018) { (_) in
+            self.dateManagerUnderTest.getEvents { (_, _) in
+            }
         }
 
         XCTAssert(dateManagerUnderTest.currentMonth == 6)
@@ -63,9 +65,9 @@ class CalendarFrontEndTests: XCTestCase {
     }
 
     func test_populateDateEntries() {
-        dateManagerUnderTest.setUpMonth(6, 2018) { (dates) in
+        dateManagerUnderTest.setUpMonth(6, 2018) { _ in
         }
-        
+
         let dates = dateManagerUnderTest.populateDateEntries(.landscape)
 
         XCTAssert(dates[0].dateStringLong == "Sunday")
@@ -120,7 +122,7 @@ class CalendarFrontEndTests: XCTestCase {
     }
 
     func test_getEvents() {
-        dateManagerUnderTest.getEvents { (events) in
+        dateManagerUnderTest.getEvents { (_, events) in
             DispatchQueue.main.async {
                 guard let events = events else { return }
                 XCTAssert(events.count > 0)

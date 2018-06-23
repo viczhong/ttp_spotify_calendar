@@ -32,7 +32,7 @@ class AllEventsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
-        dateManager.getEvents { [weak self] (events) in
+        dateManager.getEvents { [weak self] (_, events) in
             DispatchQueue.main.async {
                 if let events = events {
                     self?.events = events

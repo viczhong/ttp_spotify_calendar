@@ -54,18 +54,18 @@ class DateManager {
         populateNumberOfDaysInCalendar()
         calcuateMonthAndYear(month, year)
 
-        getEvents { [weak self] events in
-            DispatchQueue.main.async {
-                if let events = events {
-                    self?.eventsArray = events
-                    self?.filterEventsIntoMonth(month, year)
-                    if let screenRotation = self?.screenRotation, let dates = self?.populateDateEntries(screenRotation) {
-                        completion(dates)
-                    }
-                }
-            }
-        }
-
+//        getEvents { [weak self] events in
+//            DispatchQueue.main.async {
+//                if let events = events {
+//                    self?.eventsArray = events
+//                    self?.filterEventsIntoMonth(month, year)
+//                    if let screenRotation = self?.screenRotation, let dates = self?.populateDateEntries(screenRotation) {
+//                        completion(dates)
+//                    }
+//                }
+//            }
+//        }
+        filterEventsIntoMonth(month, year)
         completion(self.populateDateEntries(self.screenRotation))
     }
 
@@ -178,12 +178,20 @@ class DateManager {
     }
 
     // MARK: - API functions
-    func getEvents(_ completion: @escaping ([Event]?) -> Void) {
-        apiClient.performDataTask(.Get, eventToPost: nil) { (data) in
+    func getEvents(_ completion: @escaping ([DateEntry]?, [Event]?) -> Void) {
+        apiClient.performDataTask(.Get, eventToPost: nil) { [weak self] (data) in
             if let data = data {
                 do {
                     let events = try JSONDecoder().decode([Event].self, from: data)
-                    completion(events)
+                    self?.eventsArray = events
+
+                    guard let month = self?.currentMonth, let year = self?.currentYear else { return }
+
+                    self?.filterEventsIntoMonth(month, year)
+
+                    if let screenRotation = self?.screenRotation, let dates = self?.populateDateEntries(screenRotation) {
+                        completion(dates, events)
+                    }
                 }
                 catch {
                     print(error)
@@ -193,7 +201,7 @@ class DateManager {
     }
 
     func getEventsAndFilterIntoDate(_ month: Int, _ day: Int, _ year: Int, completion: @escaping ([Event]) -> Void) {
-        getEvents { (events) in
+        getEvents { (_, events) in
 
             DispatchQueue.main.async {
                 if let events = events {
@@ -247,7 +255,7 @@ class DateManager {
                             completion(events)
                         })
                     } else {
-                        self?.getEvents({ (events) in
+                        self?.getEvents({ (_, events) in
                             if let events = events {
                                 completion(events)
                             }

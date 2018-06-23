@@ -16,7 +16,9 @@ class CalendarViewController: UIViewController {
     var dateManager: DateManager!
     var dateArray = [DateEntry]() {
         didSet {
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
 
@@ -35,9 +37,13 @@ class CalendarViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        dateManager.setUpMonth(datePicker.selectedRow(inComponent: 0) + 1, dateManager.yearArray[datePicker.selectedRow(inComponent: 1)]) { [weak self] dateArray in
-            self?.dateArray = dateArray
+        dateManager.setUpMonth(datePicker.selectedRow(inComponent: 0) + 1, dateManager.yearArray[datePicker.selectedRow(inComponent: 1)]) { [weak self] dates in
+            self?.dateArray = dates
             self?.navigationItem.title = self?.dateManager.getHeaderString()
+            self?.dateManager.getEvents { [weak self] (datesWithEntries, _) in
+                guard let datesWithEntries = datesWithEntries else { return }
+                self?.dateArray = datesWithEntries
+            }
         }
     }
 

@@ -113,7 +113,7 @@
                                 <rect key="frame" x="0.0" y="456" width="375" height="162"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="5XB-lb-bCz">
-                                        <variation key="heightClass=compact-widthClass=regular" constant="0.0"/>
+                                        <variation key="heightClass=compact" constant="0.0"/>
                                     </constraint>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Z6V-tc-gd5"/>
                                 </constraints>
